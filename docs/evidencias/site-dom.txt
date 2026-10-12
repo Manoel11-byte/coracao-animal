@@ -1,0 +1,1 @@
+PASS: DOM com API real — início, login, administração/cadastro de animal, cadastro de conta, perfil, adoção, doação e voluntariado. Não é validação visual.

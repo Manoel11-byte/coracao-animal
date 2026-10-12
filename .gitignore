@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/TestResults/
+**/App_Data/
+**/*.db*
+artifacts/
+*.keystore
+*.jks
+*.pfx
+.env
+infra/*.local.json
+.vs/

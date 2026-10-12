@@ -1,0 +1,13 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CoracaoAnimal.Core -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/bin/Debug/net10.0/CoracaoAnimal.Core.dll
+  CoracaoAnimal.Client -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Client/bin/Debug/net10.0/CoracaoAnimal.Client.dll
+  CoracaoAnimal.App -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.App/bin/Debug/net10.0-android/CoracaoAnimal.App.dll
+  CoracaoAnimal.Core -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/bin/Debug/net10.0/CoracaoAnimal.Core.dll
+  CoracaoAnimal.Client -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Client/bin/Debug/net10.0/CoracaoAnimal.Client.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:01:21.59

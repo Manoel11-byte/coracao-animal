@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CoracaoAnimal.Api/CoracaoAnimal.Api.csproj" />
+    <Project Path="src/CoracaoAnimal.App/CoracaoAnimal.App.csproj" />
+    <Project Path="src/CoracaoAnimal.Client/CoracaoAnimal.Client.csproj" />
+    <Project Path="src/CoracaoAnimal.Core/CoracaoAnimal.Core.csproj" />
+    <Project Path="src/CoracaoAnimal.Windows/CoracaoAnimal.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CoracaoAnimal.Tests/CoracaoAnimal.Tests.csproj" />
+  </Folder>
+</Solution>

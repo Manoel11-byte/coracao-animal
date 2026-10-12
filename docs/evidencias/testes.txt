@@ -1,0 +1,15 @@
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  CoracaoAnimal.Core -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/bin/Release/net10.0/CoracaoAnimal.Core.dll
+  CoracaoAnimal.Api -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/bin/Release/net10.0/CoracaoAnimal.Api.dll
+  CoracaoAnimal.Client -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Client/bin/Release/net10.0/CoracaoAnimal.Client.dll
+  CoracaoAnimal.Tests -> /workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll
+Test run for /workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll (.NETCoreApp,Version=v10.0)
+VSTest version 18.0.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+WARNING: Overwriting results file: /workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/TestResults/integration.trx
+Results File: /workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/TestResults/integration.trx
+
+Passed!  - Failed:     0, Passed:    17, Skipped:     0, Total:    17, Duration: 17 s - CoracaoAnimal.Tests.dll (net10.0)

@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="5d9c003f-7774-4c6d-b94d-2b460c0c4e6a" name="@localhost 2026-09-20 14:46:59" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-09-20T14:46:59.1891300-04:00" queuing="2026-09-20T14:46:59.1891300-04:00" start="2026-09-20T14:46:55.0311486-04:00" finish="2026-09-20T14:47:13.1308845-04:00" />
+  <TestSettings name="default" id="e3cf9d57-10c2-4297-ad35-c80dd361432f">
+    <Deployment runDeploymentRoot="_localhost_2026-09-20_14_46_59" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="97464069-a061-4eeb-ab4a-59d6cc40d01d" testId="40b199b3-7800-ff52-d75b-1cc5749640fd" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://example.com&quot;, allowed: True)" computerName="localhost" duration="00:00:00.0000045" startTime="2026-09-20T14:47:02.0515089-04:00" endTime="2026-09-20T14:47:02.0516731-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97464069-a061-4eeb-ab4a-59d6cc40d01d" />
+    <UnitTestResult executionId="0469ef6b-90d4-4006-b617-da162fa284a7" testId="bb8302e5-51a5-0977-6013-111c272c712d" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://user:password@example.com&quot;, allowed: False)" computerName="localhost" duration="00:00:00.0000399" startTime="2026-09-20T14:47:02.0508083-04:00" endTime="2026-09-20T14:47:02.0509255-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0469ef6b-90d4-4006-b617-da162fa284a7" />
+    <UnitTestResult executionId="5de8656f-e35f-480c-9154-fecda06121c0" testId="b6604d29-69e5-c853-f21e-0d9d624f0e4b" testName="CoracaoAnimal.Tests.IntegrationTests.AdoptionMustBeApprovedBeforeCompletion" computerName="localhost" duration="00:00:01.2051722" startTime="2026-09-20T14:47:00.8584952-04:00" endTime="2026-09-20T14:47:02.0481420-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5de8656f-e35f-480c-9154-fecda06121c0" />
+    <UnitTestResult executionId="40118fca-446c-446c-ba4e-43a8fa5af1fa" testId="cbc9e2f8-4c8c-21c5-6580-7015ae57b3bc" testName="CoracaoAnimal.Tests.IntegrationTests.PasswordRevokesSessions" computerName="localhost" duration="00:00:01.5205971" startTime="2026-09-20T14:47:06.8053719-04:00" endTime="2026-09-20T14:47:08.3261111-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="40118fca-446c-446c-ba4e-43a8fa5af1fa" />
+    <UnitTestResult executionId="fba972a5-cec2-47fb-ac54-72ebedaafb63" testId="49b89958-8be7-73a7-2f4c-fc1fd06c045e" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://public.example&quot;, allowed: False)" computerName="localhost" duration="00:00:00.0015167" startTime="2026-09-20T14:47:02.0487053-04:00" endTime="2026-09-20T14:47:02.0488563-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fba972a5-cec2-47fb-ac54-72ebedaafb63" />
+    <UnitTestResult executionId="c3618364-377d-43b5-a972-303572700138" testId="3f2e8948-d836-b409-2ca5-ea06af6bab50" testName="CoracaoAnimal.Tests.IntegrationTests.RejectsFakeImage" computerName="localhost" duration="00:00:01.0966967" startTime="2026-09-20T14:47:11.7323945-04:00" endTime="2026-09-20T14:47:12.8361708-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c3618364-377d-43b5-a972-303572700138" />
+    <UnitTestResult executionId="acd91039-e83c-4d2e-a0f0-4bd2c2831bdb" testId="afb2d1d0-08a4-70ad-fad3-273fd37abd47" testName="CoracaoAnimal.Tests.IntegrationTests.CsrfAndOriginRequired" computerName="localhost" duration="00:00:00.3951943" startTime="2026-09-20T14:47:04.5548123-04:00" endTime="2026-09-20T14:47:04.9520886-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="acd91039-e83c-4d2e-a0f0-4bd2c2831bdb" />
+    <UnitTestResult executionId="4976dd2c-e282-47f0-a848-38486d5ebff7" testId="02af1836-856c-c1c0-4e38-05d29fbecefc" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://10.0.2.2:5080&quot;, allowed: True)" computerName="localhost" duration="00:00:00.0008305" startTime="2026-09-20T14:47:02.0493289-04:00" endTime="2026-09-20T14:47:02.0498231-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4976dd2c-e282-47f0-a848-38486d5ebff7" />
+    <UnitTestResult executionId="66e326e8-447a-40db-ac03-808f54e34f38" testId="4dfdbb4d-32b6-f953-2140-b313fad7102d" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://example.com/path&quot;, allowed: False)" computerName="localhost" duration="00:00:00.0000170" startTime="2026-09-20T14:47:02.0511753-04:00" endTime="2026-09-20T14:47:02.0513049-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="66e326e8-447a-40db-ac03-808f54e34f38" />
+    <UnitTestResult executionId="09d5527c-ce69-4672-b729-39a1bc4688dd" testId="b3a5434a-8e2d-7b33-31fc-ade85e436ed2" testName="CoracaoAnimal.Tests.IntegrationTests.LogoutRevokesSession" computerName="localhost" duration="00:00:00.9760282" startTime="2026-09-20T14:47:09.2120143-04:00" endTime="2026-09-20T14:47:10.1883889-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09d5527c-ce69-4672-b729-39a1bc4688dd" />
+    <UnitTestResult executionId="0ca91881-c9e1-45d2-a58b-78b6b1f8a396" testId="7338e1e4-71e7-098c-7df3-8efff78625bf" testName="CoracaoAnimal.Tests.IntegrationTests.AdoptionRequiresProfileAndTerms" computerName="localhost" duration="00:00:03.2978688" startTime="2026-09-20T14:46:55.8103195-04:00" endTime="2026-09-20T14:46:59.1146931-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0ca91881-c9e1-45d2-a58b-78b6b1f8a396" />
+    <UnitTestResult executionId="0cd9f692-15b5-4cc5-b233-de6efacb5bc3" testId="677a6fe6-8571-8080-3fe2-0671c98b7554" testName="CoracaoAnimal.Tests.IntegrationTests.AdoptionIsolationAndCancellation" computerName="localhost" duration="00:00:01.7232820" startTime="2026-09-20T14:46:59.1451458-04:00" endTime="2026-09-20T14:47:00.8401823-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0cd9f692-15b5-4cc5-b233-de6efacb5bc3" />
+    <UnitTestResult executionId="363f710b-3885-4677-a821-0baedf8101cd" testId="0f244856-389e-d92f-33c2-ead1d9bde52e" testName="CoracaoAnimal.Tests.IntegrationTests.VolunteerUpsertKeepsOneRecord" computerName="localhost" duration="00:00:00.8847616" startTime="2026-09-20T14:47:08.3264722-04:00" endTime="2026-09-20T14:47:09.2114934-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="363f710b-3885-4677-a821-0baedf8101cd" />
+    <UnitTestResult executionId="d256ba69-b74c-4537-87ed-2904d668877c" testId="08d8fa7c-b402-fdd0-49d5-40eba26e6d07" testName="CoracaoAnimal.Tests.IntegrationTests.DonationStartsPendingAndIsIsolated" computerName="localhost" duration="00:00:02.5013092" startTime="2026-09-20T14:47:02.0520365-04:00" endTime="2026-09-20T14:47:04.5529257-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d256ba69-b74c-4537-87ed-2904d668877c" />
+    <UnitTestResult executionId="53ec02a2-7ea1-4719-b387-80204bf0e5df" testId="1a58a808-afb1-bd1c-2c3c-315d67210017" testName="CoracaoAnimal.Tests.IntegrationTests.AdminOnlyWeb" computerName="localhost" duration="00:00:01.8551046" startTime="2026-09-20T14:47:04.9525136-04:00" endTime="2026-09-20T14:47:06.8049425-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="53ec02a2-7ea1-4719-b387-80204bf0e5df" />
+    <UnitTestResult executionId="bacc91c1-fe17-4a9f-ad57-dba5c2e8f8de" testId="9747e7e7-fea5-69e9-b33d-bd5fe309bd00" testName="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://localhost:5080&quot;, allowed: True)" computerName="localhost" duration="00:00:00.0002411" startTime="2026-09-20T14:47:02.0502442-04:00" endTime="2026-09-20T14:47:02.0505321-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bacc91c1-fe17-4a9f-ad57-dba5c2e8f8de" />
+    <UnitTestResult executionId="6f6ebeec-0a2f-421f-876d-f23a20360c3b" testId="461dc5fd-03f0-486d-b7a0-46ee9685c4ce" testName="CoracaoAnimal.Tests.IntegrationTests.AdoptionReservesAndCannotDuplicate" computerName="localhost" duration="00:00:01.5398293" startTime="2026-09-20T14:47:10.1888451-04:00" endTime="2026-09-20T14:47:11.7321252-04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6f6ebeec-0a2f-421f-876d-f23a20360c3b" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.LogoutRevokesSession" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="b3a5434a-8e2d-7b33-31fc-ade85e436ed2">
+      <Execution id="09d5527c-ce69-4672-b729-39a1bc4688dd" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="LogoutRevokesSession" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.AdoptionReservesAndCannotDuplicate" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="461dc5fd-03f0-486d-b7a0-46ee9685c4ce">
+      <Execution id="6f6ebeec-0a2f-421f-876d-f23a20360c3b" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="AdoptionReservesAndCannotDuplicate" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.AdoptionMustBeApprovedBeforeCompletion" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="b6604d29-69e5-c853-f21e-0d9d624f0e4b">
+      <Execution id="5de8656f-e35f-480c-9154-fecda06121c0" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="AdoptionMustBeApprovedBeforeCompletion" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://public.example&quot;, allowed: False)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="49b89958-8be7-73a7-2f4c-fc1fd06c045e">
+      <Execution id="fba972a5-cec2-47fb-ac54-72ebedaafb63" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.AdoptionRequiresProfileAndTerms" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="7338e1e4-71e7-098c-7df3-8efff78625bf">
+      <Execution id="0ca91881-c9e1-45d2-a58b-78b6b1f8a396" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="AdoptionRequiresProfileAndTerms" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.RejectsFakeImage" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="3f2e8948-d836-b409-2ca5-ea06af6bab50">
+      <Execution id="c3618364-377d-43b5-a972-303572700138" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="RejectsFakeImage" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://10.0.2.2:5080&quot;, allowed: True)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="02af1836-856c-c1c0-4e38-05d29fbecefc">
+      <Execution id="4976dd2c-e282-47f0-a848-38486d5ebff7" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;http://localhost:5080&quot;, allowed: True)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="9747e7e7-fea5-69e9-b33d-bd5fe309bd00">
+      <Execution id="bacc91c1-fe17-4a9f-ad57-dba5c2e8f8de" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.VolunteerUpsertKeepsOneRecord" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="0f244856-389e-d92f-33c2-ead1d9bde52e">
+      <Execution id="363f710b-3885-4677-a821-0baedf8101cd" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="VolunteerUpsertKeepsOneRecord" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.AdoptionIsolationAndCancellation" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="677a6fe6-8571-8080-3fe2-0671c98b7554">
+      <Execution id="0cd9f692-15b5-4cc5-b233-de6efacb5bc3" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="AdoptionIsolationAndCancellation" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.PasswordRevokesSessions" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="cbc9e2f8-4c8c-21c5-6580-7015ae57b3bc">
+      <Execution id="40118fca-446c-446c-ba4e-43a8fa5af1fa" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="PasswordRevokesSessions" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://example.com&quot;, allowed: True)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="40b199b3-7800-ff52-d75b-1cc5749640fd">
+      <Execution id="97464069-a061-4eeb-ab4a-59d6cc40d01d" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://user:password@example.com&quot;, allowed: False)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="bb8302e5-51a5-0977-6013-111c272c712d">
+      <Execution id="0469ef6b-90d4-4006-b617-da162fa284a7" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.ClientUrlPolicy(url: &quot;https://example.com/path&quot;, allowed: False)" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="4dfdbb4d-32b6-f953-2140-b313fad7102d">
+      <Execution id="66e326e8-447a-40db-ac03-808f54e34f38" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="ClientUrlPolicy" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.CsrfAndOriginRequired" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="afb2d1d0-08a4-70ad-fad3-273fd37abd47">
+      <Execution id="acd91039-e83c-4d2e-a0f0-4bd2c2831bdb" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="CsrfAndOriginRequired" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.DonationStartsPendingAndIsIsolated" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="08d8fa7c-b402-fdd0-49d5-40eba26e6d07">
+      <Execution id="d256ba69-b74c-4537-87ed-2904d668877c" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="DonationStartsPendingAndIsIsolated" />
+    </UnitTest>
+    <UnitTest name="CoracaoAnimal.Tests.IntegrationTests.AdminOnlyWeb" storage="/workspace/scratch/63e83be04b0b/coracao-animal/tests/coracaoanimal.tests/bin/release/net10.0/coracaoanimal.tests.dll" id="1a58a808-afb1-bd1c-2c3c-315d67210017">
+      <Execution id="53ec02a2-7ea1-4719-b387-80204bf0e5df" />
+      <TestMethod codeBase="/workspace/scratch/63e83be04b0b/coracao-animal/tests/CoracaoAnimal.Tests/bin/Release/net10.0/CoracaoAnimal.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner3/netcore/" className="CoracaoAnimal.Tests.IntegrationTests" name="AdminOnlyWeb" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="40b199b3-7800-ff52-d75b-1cc5749640fd" executionId="97464069-a061-4eeb-ab4a-59d6cc40d01d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bb8302e5-51a5-0977-6013-111c272c712d" executionId="0469ef6b-90d4-4006-b617-da162fa284a7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b6604d29-69e5-c853-f21e-0d9d624f0e4b" executionId="5de8656f-e35f-480c-9154-fecda06121c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cbc9e2f8-4c8c-21c5-6580-7015ae57b3bc" executionId="40118fca-446c-446c-ba4e-43a8fa5af1fa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="49b89958-8be7-73a7-2f4c-fc1fd06c045e" executionId="fba972a5-cec2-47fb-ac54-72ebedaafb63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3f2e8948-d836-b409-2ca5-ea06af6bab50" executionId="c3618364-377d-43b5-a972-303572700138" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="afb2d1d0-08a4-70ad-fad3-273fd37abd47" executionId="acd91039-e83c-4d2e-a0f0-4bd2c2831bdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="02af1836-856c-c1c0-4e38-05d29fbecefc" executionId="4976dd2c-e282-47f0-a848-38486d5ebff7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4dfdbb4d-32b6-f953-2140-b313fad7102d" executionId="66e326e8-447a-40db-ac03-808f54e34f38" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3a5434a-8e2d-7b33-31fc-ade85e436ed2" executionId="09d5527c-ce69-4672-b729-39a1bc4688dd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7338e1e4-71e7-098c-7df3-8efff78625bf" executionId="0ca91881-c9e1-45d2-a58b-78b6b1f8a396" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="677a6fe6-8571-8080-3fe2-0671c98b7554" executionId="0cd9f692-15b5-4cc5-b233-de6efacb5bc3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0f244856-389e-d92f-33c2-ead1d9bde52e" executionId="363f710b-3885-4677-a821-0baedf8101cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="08d8fa7c-b402-fdd0-49d5-40eba26e6d07" executionId="d256ba69-b74c-4537-87ed-2904d668877c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1a58a808-afb1-bd1c-2c3c-315d67210017" executionId="53ec02a2-7ea1-4719-b387-80204bf0e5df" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9747e7e7-fea5-69e9-b33d-bd5fe309bd00" executionId="bacc91c1-fe17-4a9f-ad57-dba5c2e8f8de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="461dc5fd-03f0-486d-b7a0-46ee9685c4ce" executionId="6f6ebeec-0a2f-421f-876d-f23a20360c3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="17" executed="17" passed="17" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v3.1.1+bf6400fd51 (64-bit .NET 10.0.0)
+[xUnit.net 00:00:00.09]   Discovering: CoracaoAnimal.Tests
+[xUnit.net 00:00:00.18]   Discovered:  CoracaoAnimal.Tests
+[xUnit.net 00:00:00.22]   Starting:    CoracaoAnimal.Tests
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Complete CPF, telefone e endereço no perfil.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Criar(Int32 id, AdocaoInput i) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 9
+         at CoracaoAnimal.Api.Application.Adocoes.Criar(Int32 id, AdocaoInput i) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 11
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_11&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 29
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.&lt;&gt;c__DisplayClass102_2.&lt;&lt;HandleRequestBodyAndCompileRequestDelegateForJson&gt;b__2&gt;d.MoveNext()
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Aceite o compromisso de adoção responsável.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Criar(Int32 id, AdocaoInput i) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 8
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_11&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 29
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.&lt;&gt;c__DisplayClass102_2.&lt;&lt;HandleRequestBodyAndCompileRequestDelegateForJson&gt;b__2&gt;d.MoveNext()
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Adoção não encontrada.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_12&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 30
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Alteração de status não permitida.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapAdmin&gt;b__4_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 48
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.&lt;&gt;c__DisplayClass102_2.&lt;&lt;HandleRequestBodyAndCompileRequestDelegateForJson&gt;b__2&gt;d.MoveNext()
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Alteração de status não permitida.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Application.Adocoes.Alterar(Int32 id, String status, Int32 user, Boolean admin) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 13
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_12&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 30
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Doação não encontrada.
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_15&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 33
+      --- End of stack trace from previous location ---
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_15&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 33
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Somente intenções pendentes podem ser canceladas.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_15&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 33
+      --- End of stack trace from previous location ---
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_15&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 33
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+info: CoracaoAnimal.Api.Infrastructure.SessionAuth[13]
+      AuthenticationScheme: Session was forbidden.
+info: CoracaoAnimal.Api.Infrastructure.SessionAuth[13]
+      AuthenticationScheme: Session was forbidden.
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+info: CoracaoAnimal.Api.Infrastructure.SessionAuth[12]
+      AuthenticationScheme: Session was challenged.
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+info: CoracaoAnimal.Api.Infrastructure.SessionAuth[12]
+      AuthenticationScheme: Session was challenged.
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Animal não está disponível.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Application.Adocoes.Criar(Int32 id, AdocaoInput i) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 10
+         at CoracaoAnimal.Api.Application.Adocoes.Criar(Int32 id, AdocaoInput i) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Application/Adocoes.cs:line 11
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapApi&gt;b__3_11&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 29
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.ExecuteTaskResult[T](Task`1 task, HttpContext httpContext)
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.&lt;&gt;c__DisplayClass102_2.&lt;&lt;HandleRequestBodyAndCompileRequestDelegateForJson&gt;b__2&gt;d.MoveNext()
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Testing
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api
+fail: Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+      CoracaoAnimal.Core.RegraException: Envie uma imagem JPG, PNG ou WEBP válida.
+         at CoracaoAnimal.Core.Regras.Exigir(Boolean condicao, String mensagem, Int32 status) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/Regras.cs:line 5
+         at CoracaoAnimal.Api.Infrastructure.Fotos.Salvar(IFormFile file, CancellationToken ct) in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Infrastructure/Fotos.cs:line 10
+         at CoracaoAnimal.Api.Endpoints.&lt;&gt;c.&lt;&lt;MapAdmin&gt;b__4_3&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Endpoints.cs:line 44
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Http.RequestDelegateFactory.&lt;ExecuteTaskOfTFast&gt;g__ExecuteAwaited|133_0[T](Task`1 task, HttpContext httpContext, JsonTypeInfo`1 jsonTypeInfo)
+         at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+         at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+         at Program.&lt;&gt;c.&lt;&lt;&lt;Main&gt;$&gt;b__0_7&gt;d.MoveNext() in /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/Program.cs:line 23
+      --- End of stack trace from previous location ---
+         at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.&lt;Invoke&gt;g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+info: Microsoft.Hosting.Lifetime[0]
+      Application is shutting down...
+[xUnit.net 00:00:17.29]   Finished:    CoracaoAnimal.Tests
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

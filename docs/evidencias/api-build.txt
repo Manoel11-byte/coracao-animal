@@ -1,0 +1,11 @@
+  Determining projects to restore...
+  Restored /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/CoracaoAnimal.Api.csproj (in 43.73 sec).
+  1 of 2 projects are up-to-date for restore.
+  CoracaoAnimal.Core -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Core/bin/Release/net10.0/CoracaoAnimal.Core.dll
+  CoracaoAnimal.Api -> /workspace/scratch/63e83be04b0b/coracao-animal/src/CoracaoAnimal.Api/bin/Release/net10.0/CoracaoAnimal.Api.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:50.97
