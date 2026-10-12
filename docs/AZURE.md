@@ -2,7 +2,7 @@
 
 ## Situação da entrega
 
-Há código Bicep validado pelo compilador e scripts de implantação. **Nenhuma assinatura foi acessada, nenhum recurso criado e nenhum site publicado.** Validação de sintaxe não certifica quotas, políticas, disponibilidade regional, comportamento do SQL ou execução em nuvem.
+Site e API da versão 1.0.1 foram publicados no App Service existente `coracao-pkzqbhzfiqlry`, grupo `rg-coracaoanimal`, assinatura Azure for Students do proprietário. `/health/ready` confirmou acesso ao Azure SQL existente. Consulte `CORRECAO-AZURE-1.0.1.md` para validação e funcionamento atual. O Bicep abaixo é um modelo para implantação inicial; não deve ser aplicado sobre esta instalação como uma atualização de código.
 
 ## Recursos declarados
 
@@ -53,7 +53,7 @@ Esse script verifica saúde e solicita confirmação de acesso inicial. Remove a
 
 Esse comando atualiza somente o código. Não recria recursos. A aplicação não implementa migrações SQL automáticas futuras; scripts versionados devem preceder alterações de esquema. No plano B1 não há slot de staging configurado. Uma nova publicação pode causar breve indisponibilidade.
 
-Nos aplicativos, configure a URL HTTPS retornada pelo deployment. A mesma conta passa a usar o banco central de produção. Dados SQLite locais não são enviados automaticamente ao Azure.
+Os aplicativos publicados conectam automaticamente a `https://coracao-pkzqbhzfiqlry.azurewebsites.net/`. A mesma conta usa o banco central de produção. Dados SQLite locais não são enviados automaticamente ao Azure.
 
 ## CI/CD
 

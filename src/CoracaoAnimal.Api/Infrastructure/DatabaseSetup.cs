@@ -12,6 +12,17 @@ public static class DatabaseSetup {
     if(!string.IsNullOrEmpty(conn)){var cs=new Microsoft.Data.SqlClient.SqlConnectionStringBuilder(config.GetConnectionString("CoracaoAnimal"));Regras.Exigir(cs.UserID=="ca_runtime","Usuário runtime deve ser ca_runtime.");await setup.Database.ExecuteSqlRawAsync("IF NOT EXISTS(SELECT 1 FROM sys.database_principals WHERE name=N'ca_runtime') BEGIN DECLARE @cmd nvarchar(max)=N'CREATE USER [ca_runtime] WITH PASSWORD = '+QUOTENAME(@pwd,CHAR(39)); EXEC sp_executesql @cmd; END; ALTER ROLE db_datareader ADD MEMBER [ca_runtime]; ALTER ROLE db_datawriter ADD MEMBER [ca_runtime]; GRANT EXECUTE ON dbo.usp_ResumoMensal TO [ca_runtime]; GRANT EXECUTE ON dbo.usp_LimparSessoesExpiradas TO [ca_runtime];",new Microsoft.Data.SqlClient.SqlParameter("@pwd",cs.Password));}
    }finally{await setup.Database.CloseConnectionAsync();}}
   }
+  if(config.GetValue<bool>("Database:SeedDemo")){
+   var demos=new[]{
+    new Animal{Nome="Luna",Especie="cao",Raca="Labrador",Idade=2,Porte="grande",Descricao="Animal fictício de demonstração. Carinhosa, brincalhona e cheia de energia.",FotoUrl="/img/labrador_imagem.jpg"},
+    new Animal{Nome="Nino",Especie="gato",Raca="Ragdoll",Idade=3,Porte="pequeno",Descricao="Animal fictício de demonstração. Tranquilo, curioso e companheiro.",FotoUrl="/img/ragdoll_imagem.jpg"},
+    new Animal{Nome="Mel",Especie="cao",Raca="Poodle",Idade=1,Porte="pequeno",Descricao="Animal fictício de demonstração. Gosta de passeios e de ficar perto da família.",FotoUrl="/img/poodle_imagem.webp"},
+    new Animal{Nome="Thor",Especie="cao",Raca="Labrador",Idade=4,Porte="grande",Descricao="Animal fictício de demonstração. Sociável e companheiro para atividades ao ar livre.",FotoUrl="/img/labrador_imagem.jpg"},
+    new Animal{Nome="Amora",Especie="gato",Raca="Ragdoll",Idade=1,Porte="pequeno",Descricao="Animal fictício de demonstração. Adora brinquedos e um lugar tranquilo para descansar.",FotoUrl="/img/ragdoll_imagem.jpg"},
+    new Animal{Nome="Bento",Especie="cao",Raca="Poodle",Idade=5,Porte="pequeno",Descricao="Animal fictício de demonstração. Calmo e acostumado à rotina dentro de casa.",FotoUrl="/img/poodle_imagem.webp"}};
+   foreach(var demo in demos){if(!await db.Animais.AnyAsync(x=>x.Nome==demo.Nome))db.Animais.Add(demo);}
+   await db.SaveChangesAsync();
+  }
   var email=config["Bootstrap:Email"]?.Trim().ToLowerInvariant();var password=config["Bootstrap:Password"];
   if(!string.IsNullOrEmpty(email)&&!string.IsNullOrEmpty(password)&&!await db.Usuarios.AnyAsync(x=>x.Papel=="admin")){Regras.Validar(new Cadastro("Administrador",email,password));Regras.Exigir(!await db.Usuarios.AnyAsync(x=>x.Email==email),"E-mail de inicialização já está cadastrado.");var u=new Usuario{Nome="Administrador",Email=email,Papel="admin"};u.SenhaHash=scope.ServiceProvider.GetRequiredService<IPasswordHasher<Usuario>>().HashPassword(u,password);db.Adotantes.Add(new Adotante{Usuario=u});await db.SaveChangesAsync();}
  }

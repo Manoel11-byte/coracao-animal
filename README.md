@@ -1,155 +1,86 @@
-# Coração Animal — solução integrada PIM IV
+# Coração Animal — PIM IV
 
-Plataforma de adoção responsável composta por **site**, **API REST**, **aplicativo Android**, **aplicativo Windows**, **banco de dados** e infraestrutura preparada para o **Microsoft Azure**. As três interfaces utilizam a mesma API e o mesmo banco de dados, portanto cadastros e alterações ficam disponíveis em todos os dispositivos.
+Versão 1.0.1 — API, site, Android e Windows integrados ao Azure SQL da assinatura do proprietário.
 
-> O painel administrativo existe somente no site. Os aplicativos Android e Windows são destinados ao público usuário.
+- Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
+- Conta e catálogo: https://coracao-pkzqbhzfiqlry.azurewebsites.net/portal.html#animais
+- API: https://coracao-pkzqbhzfiqlry.azurewebsites.net/api/animais
+- Saúde e banco: https://coracao-pkzqbhzfiqlry.azurewebsites.net/health/ready
+- Downloads: https://github.com/Manoel11-byte/coracao-animal/releases/latest
 
-## Acessos online
+Os apps conectam automaticamente ao endereço acima. Instale os pacotes da versão 1.0.1. Caso o Android recuse atualizar uma instalação antiga devido à assinatura, desinstale o APK anterior e instale o novo; os dados do servidor permanecem no Azure.
 
-| Serviço | Link |
-|---|---|
-| Site | [Abrir Coração Animal](https://coracaoanimal-api-fqegfpe7avcda5cy.chilecentral-01.azurewebsites.net/) |
-| API base | [Abrir API](https://coracaoanimal-api-fqegfpe7avcda5cy.chilecentral-01.azurewebsites.net/) |
-| Swagger | [Documentação interativa](https://coracaoanimal-api-fqegfpe7avcda5cy.chilecentral-01.azurewebsites.net/swagger/index.html) |
-| Downloads | [Versões publicadas](https://github.com/Manoel11-byte/coracao-animal/releases) |
+Luna, Nino, Mel, Thor, Amora e Bento são animais fictícios, com fotografias de demonstração. Cadastre uma conta e complete seu perfil para testar adoções. Doações registram intenções, sem cobrança automática. A área administrativa fica somente no site.
 
-## Baixar os aplicativos
+A página inicial mantém o layout e os materiais do projeto original de https://github.com/m4rcosJr/coracao-animal. As funções autenticadas utilizam o portal integrado, com a mesma paleta de cores.
 
-- [Android — APK](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/CoracaoAnimal-Android.apk)
-- [Windows — pacote ZIP](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/CoracaoAnimal-Windows-x64.zip)
-- [Código-fonte completo](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/CoracaoAnimal-Projeto-Completo.zip)
+Solução integrada baseada no projeto Coração Animal fornecido pelo usuário. Site ASP.NET Core, aplicativo Android .NET MAUI e aplicativo Windows WinForms usam a mesma API e o mesmo banco. **Administração exclusivamente pelo site.**
 
-Os aplicativos se conectam automaticamente à API hospedada no Azure. Não existe tela de configuração de servidor na versão de produção.
+## Comece aqui
 
-## Funcionalidades
+1. Instale o SDK .NET 10. Para executar somente o EXE publicado, não é necessário instalar o SDK.
+2. Extraia o código e dê dois cliques em `INICIAR-SERVIDOR.cmd`. Ele evita o bloqueio comum de scripts do PowerShell.
+3. Informe e-mail e senha para criar o primeiro administrador. Abra `http://localhost:5080`.
+4. Entre pelo site, abra Administração → Animais e cadastre um animal, incluindo foto se desejar.
+5. Crie outra conta para testar os fluxos do adotante. Complete CPF, telefone e endereço antes de solicitar adoção. Utilize dados fictícios na demonstração.
+6. No Windows, execute `CoracaoAnimal.exe`; a conexão com o Azure é automática.
+7. No Android, instale `CoracaoAnimal-Android.apk`; a conexão com o Azure é automática.
 
-- Catálogo de animais com busca e filtros.
-- Cadastro, autenticação e manutenção da conta.
-- Preferências e recomendações de animais.
-- Solicitações e acompanhamento de adoção.
-- Registro de intenção de doação.
-- Inscrição para voluntariado.
-- Sincronização entre site, Android e Windows por API REST.
-- Painel administrativo exclusivo no site.
-- Upload e armazenamento de fotografias.
-- Banco local SQLite para desenvolvimento e Azure SQL/SQL Server em produção.
-- Sessões, autorização, validação, proteção CSRF e regras de negócio compartilhadas.
+A configuração Development cria um banco SQLite local. Em produção o provedor é SQL Server/Azure SQL. O catálogo começa vazio; não há senhas padrão nem dados reais embutidos. O SQL de demonstração opcional está em `database/seed-demo.sql` e destina-se ao SQL Server.
 
-## Arquitetura
+## Entregas e limites
 
-```mermaid
-flowchart TD
-    W[Site e painel administrativo] --> A[API ASP.NET Core]
-    M[Aplicativo Android] --> A
-    D[Aplicativo Windows] --> A
-    A --> B[(Azure SQL)]
-    A --> S[Azure Blob Storage]
-```
+- Site com área pública, conta, preferências, adoções, intenções de doação, voluntariado e administração.
+- API .NET com sessões no servidor, autorização, validação e transações.
+- Windows x64: publicação independente do runtime, em arquivo EXE. Interface nativa WinForms.
+- Android 7/API 24 ou superior: interface nativa MAUI. APK Debug para avaliação; publicação oficial exige chave de assinatura própria.
+- Azure: site e API publicados no App Service existente, dados no Azure SQL e fotos no Blob Storage.
+- Documentação de arquitetura, banco, API, instalação, implantação e matriz do manual.
 
-| Caminho | Conteúdo |
+Os aplicativos exigem conexão com o servidor. Consultam os dados ao abrir cada seção; não há edição offline nem atualização por push. O aplicativo não processa pagamentos: registra intenções, cuja confirmação cabe à administração. Recomendações são similaridade matemática de características, não um modelo treinado nem garantia de compatibilidade.
+
+## Estrutura
+
+| Caminho | Finalidade |
 |---|---|
 | `src/CoracaoAnimal.Core` | Entidades, contratos e regras de negócio |
-| `src/CoracaoAnimal.Api` | API, site, autenticação e persistência |
-| `src/CoracaoAnimal.Client` | Cliente HTTP compartilhado pelos aplicativos |
-| `src/CoracaoAnimal.App` | Aplicativo Android em .NET MAUI |
-| `src/CoracaoAnimal.Windows` | Aplicativo Windows em WinForms |
-| `database` | Modelo físico, índices, procedures, trigger e carga demonstrativa |
-| `infra` | Infraestrutura Azure declarada em Bicep |
+| `src/CoracaoAnimal.Api` | Aplicação, persistência, autenticação e site |
+| `src/CoracaoAnimal.Client` | Cliente HTTP compartilhado pelos apps |
+| `src/CoracaoAnimal.Windows` | Interface Windows |
+| `src/CoracaoAnimal.App` | Interface Android |
+| `database` | Modelo físico, índices, procedures, trigger e dados opcionais |
+| `infra` | Recursos Azure declarados em Bicep |
 | `scripts` | Execução, compilação e implantação |
-| `tests` | Testes automatizados |
-| `docs` | Arquitetura, API, banco, Azure e material do PIM IV |
+| `tests` | Testes automatizados da API e cliente |
+| `docs` | Documentação técnica e acadêmica de apoio |
 
-## Executar localmente
-
-### Requisitos
-
-- SDK .NET 10.
-- PowerShell 7 ou Windows PowerShell.
-- Para Android: JDK 21, Android SDK 36 e workload `maui-android`.
-
-### Site e API
-
-No Windows, execute `INICIAR-SERVIDOR.cmd`. Alternativamente:
+## Compilar e testar
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-local.ps1
-```
-
-Informe o e-mail e uma senha com pelo menos 10 caracteres para criar o administrador local. Depois acesse `http://localhost:5080`.
-
-Em desenvolvimento é criado um banco SQLite local. Nenhuma senha real está armazenada no repositório.
-
-### Testes
-
-```powershell
-dotnet test .\tests\CoracaoAnimal.Tests -c Release
-```
-
-### Aplicativo Windows
-
-```powershell
-.\scripts\build-windows.ps1
-```
-
-O pacote é gerado para Windows x64 e inclui o runtime necessário.
-
-### Aplicativo Android
-
-```powershell
+dotnet test tests/CoracaoAnimal.Tests -c Release
+./scripts/build-windows.ps1
 dotnet workload install maui-android
-.\scripts\build-android.ps1
+./scripts/build-android.ps1
 ```
 
-O build de demonstração gera um APK Debug. Para distribuição oficial, use uma chave de assinatura própria e nunca publique a senha da chave.
+Para Android, instale também JDK 21 e Android SDK Platform 36/Build Tools 36.0.0. O Visual Studio com ferramentas Android pode gerenciar esses componentes. O build Windows pode ser gerado em outro sistema, mas a execução deve ser validada em Windows.
 
-## Configuração da API
+## Implantar no Azure
 
-Produção utiliza variáveis de ambiente ou configurações do Azure App Service:
-
-| Configuração | Finalidade |
-|---|---|
-| `Database__Provider` | `SqlServer` em produção ou `Sqlite` localmente |
-| `ConnectionStrings__CoracaoAnimal` | Conexão do banco de dados |
-| `Storage__ConnectionString` | Conexão do Blob Storage |
-| `Storage__Container` | Contêiner de fotografias |
-| `Bootstrap__Email` | E-mail inicial do administrador |
-| `Bootstrap__Password` | Senha inicial do administrador |
-
-Credenciais não devem ser gravadas em arquivos versionados.
-
-## Implantação no Azure
-
-Leia [`docs/AZURE.md`](docs/AZURE.md). Com a Azure CLI autenticada:
+Leia **`docs/AZURE.md`**. Com Azure CLI autenticado na assinatura desejada:
 
 ```powershell
-.\scripts\deploy-azure.ps1 `
-  -ResourceGroup rg-coracaoanimal `
-  -Location chilecentral `
-  -Prefix coracao `
-  -AdminEmail seu-email@exemplo.com
+./scripts/deploy-azure.ps1 -ResourceGroup rg-coracaoanimal -Location brazilsouth -Prefix coracao -AdminEmail seu-email@exemplo.com
 ```
 
-A infraestrutura prevê App Service, Azure SQL, Storage, monitoramento, segurança e automação CI/CD. Confira preços, cotas e região antes de executar qualquer provisionamento.
+O script apresenta a assinatura e a previsão de recursos antes da criação. Há cobrança pelos serviços. Região, disponibilidade, quotas e valores devem ser conferidos na assinatura utilizada. Não envie senhas ou chaves pelo chat. Após validar o login inicial, execute o script de finalização indicado na documentação.
 
-## Documentação
+## Guias
 
-- [`docs/ARQUITETURA.md`](docs/ARQUITETURA.md) — módulos, fluxo e decisões técnicas.
-- [`docs/API.md`](docs/API.md) — rotas e contratos REST.
-- [`docs/BANCO.md`](docs/BANCO.md) — MER, tabelas, procedures e trigger.
-- [`docs/AZURE.md`](docs/AZURE.md) — implantação, operação e CI/CD.
-- [`docs/PIM-IV.md`](docs/PIM-IV.md) — rastreabilidade acadêmica e planejamento ágil.
-- [`docs/VALIDACAO.md`](docs/VALIDACAO.md) — evidências de compilação e testes.
-
-## Segurança e privacidade
-
-- Não publique senhas, chaves, tokens ou strings de conexão.
-- Utilize somente dados fictícios durante demonstrações acadêmicas.
-- Troque a senha inicial do administrador após o primeiro acesso.
-- Use HTTPS em produção e restrinja permissões dos serviços Azure.
-- APKs externos ao Google Play podem exigir autorização manual do Android para instalação.
-
-## Observações
-
-O sistema registra intenções de doação; não processa pagamentos. As recomendações utilizam afinidade matemática com preferências declaradas e não garantem aprovação da adoção. Cada solicitação deve ser avaliada pela equipe responsável.
-
-Projeto acadêmico desenvolvido para o PIM IV do curso de Análise e Desenvolvimento de Sistemas.
+- `docs/ARQUITETURA.md`: módulos, decisões e segurança.
+- `docs/BANCO.md`: MER, tabelas, invariantes e programação SQL.
+- `docs/API.md`: rotas e contratos.
+- `docs/AZURE.md`: implantação, operação e CI/CD.
+- `docs/PIM-IV.md`: rastreabilidade do manual e planejamento acadêmico.
+- `docs/VALIDACAO.md`: evidências e validações pendentes.
+- `docs/ORIGEM.md`: relação com o projeto original.

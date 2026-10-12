@@ -1,0 +1,389 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coração Animal — Todo animal merece um lar</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/home.css"/>
+  <style>
+    /* Adoption modal */
+    .adoption-modal-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px); }
+    .adoption-modal-overlay.open { display:flex; }
+    .adoption-modal-box { background:var(--bg-card);border:1px solid var(--border);border-radius:1.5rem;width:100%;max-width:540px;max-height:90vh;overflow-y:auto; }
+    .adoption-modal-header { padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--bg-card);z-index:1; }
+    .adoption-modal-title { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text); }
+    .adoption-modal-body { padding:1.5rem; }
+    .animal-summary { background:var(--bg-muted);border-radius:12px;padding:1rem;display:flex;gap:14px;align-items:center;margin-bottom:1.5rem; }
+    .animal-summary-photo { width:70px;height:70px;border-radius:10px;overflow:hidden;flex-shrink:0;background:var(--bg-muted); }
+    .modal-feedback { display:none;padding:10px 14px;border-radius:10px;font-size:13px;font-family:'DM Sans',sans-serif;margin-bottom:1rem;text-align:center; }
+    .modal-feedback.sucesso { display:block;background:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9; }
+    .modal-feedback.erro    { display:block;background:rgba(229,57,53,.08);color:#e53935;border:1px solid rgba(229,57,53,.2); }
+    .adoption-modal-footer { padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end;position:sticky;bottom:0;background:var(--bg-card); }
+    /* Dashboard */
+    .dashboard-wrap { background:var(--bg-muted);border-top:1px solid var(--border);border-bottom:1px solid var(--border);transition:var(--transition); }
+    .dash-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:1.5rem; }
+    .dash-card { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:var(--transition);border-left:3px solid var(--laranja); }
+    .dash-card:hover { border-color:var(--laranja);transform:translateY(-2px); }
+    .dash-card.green { border-left-color:#4a7c59; }
+    .dash-card.blue  { border-left-color:#185FA5; }
+    .dash-card.purple{ border-left-color:#7F77DD; }
+    .dash-icon { font-size:22px;margin-bottom:8px; }
+    .dash-val { font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--laranja);line-height:1; }
+    .dash-card.green  .dash-val { color:#4a7c59; }
+    .dash-card.blue   .dash-val { color:#185FA5; }
+    .dash-card.purple .dash-val { color:#7F77DD; }
+    [data-theme=dark] .dash-card.green  .dash-val { color:#5DCAA5; }
+    [data-theme=dark] .dash-card.blue   .dash-val { color:#85B7EB; }
+    [data-theme=dark] .dash-card.purple .dash-val { color:#AFA9EC; }
+    .dash-label { font-size:12px;color:var(--text-sec);font-family:'DM Sans',sans-serif;margin-top:4px; }
+    .dash-rate-wrap { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;margin-bottom:1.5rem; }
+    .dash-rate-row { display:flex;justify-content:space-between;align-items:center;margin-bottom:8px; }
+    .dash-rate-label { font-size:13px;color:var(--text-sec);font-family:'DM Sans',sans-serif; }
+    .dash-rate-val { font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--laranja); }
+    .dash-bar-bg { height:8px;background:var(--bg-muted);border-radius:50px;overflow:hidden; }
+    .dash-bar-fill { height:100%;background:linear-gradient(90deg,var(--laranja),#4a7c59);border-radius:50px;width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1); }
+    .dash-chart-wrap { background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem; }
+    .dash-chart-label { font-size:13px;color:var(--text-sec);font-family:'DM Sans',sans-serif;margin-bottom:1rem; }
+    .dash-simulated { display:none;font-size:11px;color:var(--laranja);background:rgba(224,92,42,.08);border:1px solid rgba(224,92,42,.2);border-radius:20px;padding:3px 12px;font-family:'DM Sans',sans-serif; }
+    .dash-simulated-badge { display:none; }
+    /* Nav extras */
+    .nav-register-btn { background:rgba(224,92,42,.1);color:var(--laranja);border:1px solid rgba(224,92,42,.3);border-radius:50px;padding:6px 14px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:var(--transition);text-decoration:none;display:none;align-items:center;gap:5px; }
+    .nav-register-btn:hover { background:var(--laranja);color:white; }
+    @media(max-width:768px){ .dash-grid{ grid-template-columns:repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+
+<script src="js/auth.js"></script>
+<script src="js/notifications.js"></script>
+
+<!-- ── VLIBRAS Accessibility Widget ─────────────────────────────── -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+
+<!-- ── NAVBAR ─────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="img/logo-coracao-animal.png" alt="Coração Animal" class="nav-logo-img" />
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Sobre</a></li>
+    <li><a href="pages/animais.html">Adote</a></li>
+    <li><a href="pages/voluntarios.html">Como Ajudar</a></li>
+    <li><a href="pages/doacoes.html">Doações</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-tema" id="btnTema" onclick="alternarTema()"><span id="temaIcone">🌙</span></button>
+    <button class="nav-hamburguer" id="navHamburguer" onclick="toggleMenu()" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <!-- Admin only: Register Animal -->
+    <a href="pages/register-animal.html" class="nav-register-btn" id="navRegisterBtn" data-auth="admin">
+      + Cadastrar Animal
+    </a>
+        <!-- Admin only: Painel -->
+    <a href="pages/admin.html" class="nav-register-btn" id="navAdminBtn" data-auth="admin"
+       style="background:transparent;border:1px solid var(--border);color:var(--text-sec);">
+      ⚙ Admin
+    </a>
+    <!-- Not logged in -->
+    <a href="javascript:void(0)" class="btn-cta" data-auth="logged-out"
+      onclick="handleAdoptClick()">
+      🧡 Adote Agora
+    </a>
+    <!-- Logged in -->
+    <div data-auth="logged-in" style="display:none;align-items:center;gap:8px">
+      <span style="font-size:13px;color:var(--text-sec);font-family:'DM Sans',sans-serif">
+        Olá, <strong data-username style="color:var(--laranja)"></strong>
+      </span>
+      <button onclick="logout()" style="background:transparent;border:1px solid var(--border);border-radius:50px;padding:5px 12px;font-size:12px;color:var(--text-sec);cursor:pointer;font-family:'DM Sans',sans-serif">Sair</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<div class="nav-mobile" id="navMobile">
+  <a href="index.html" class="active">Sobre</a>
+  <a href="pages/animais.html">Adote</a>
+  <a href="pages/voluntarios.html">Como Ajudar</a>
+  <div class="nav-mobile-divider"></div>
+  <a href="pages/doacoes.html">Doações</a>
+  <a href="pages/register-animal.html" data-auth="admin" style="display:none;color:var(--laranja);font-weight:600">+ Cadastrar Animal</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero-section">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge anim-1">🐾 ONG de proteção animal</div>
+      <h1 class="anim-2">Todo animal merece <em>um lar</em> cheio de amor</h1>
+      <p class="anim-3">Resgatamos, cuidamos e encontramos famílias amorosas para animais abandonados. Junte-se a nós nessa missão.</p>
+      <div class="hero-btns anim-4">
+        <a href="javascript:void(0)" class="btn-cta"
+          onclick="handleAdoptClick()">🧡 Quero Adotar</a>
+        <a href="javascript:void(0)" class="btn-sec"
+          onclick="requireLogin('pages/voluntarios.html','Faça login para se cadastrar como voluntário')">🤝 Quero Ajudar</a>
+      </div>
+      <div class="hero-stat anim-4">
+        <div class="hero-stat-icone">🏠</div>
+        <div>
+          <div class="hero-stat-num" id="statDisponiveis">—</div>
+          <div class="hero-stat-label">Animais disponíveis agora</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-foto-wrap">
+      <div class="deco-circle"></div>
+        <div class="hero-foto">
+          <div class="hero-foto-placeholder">
+            <img src="img/labrador_imagem.jpg" alt="labrador">
+          </div>
+        </div>
+      <div class="hero-foto-card">
+        <div class="hero-foto-card-icone">💚</div>
+        <div>
+          <div class="hero-foto-card-num" id="dash-adopted">—</div>
+          <div class="hero-foto-card-label">Vidas transformadas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MISSÃO ── -->
+<section class="missao">
+  <div class="missao-inner">
+    <div class="section-label">Nossa Missão</div>
+    <h2>Resgatando vidas, transformando destinos</h2>
+    <p>A Coração Animal é uma ONG dedicada ao resgate, reabilitação e adoção responsável de animais em situação de abandono.</p>
+    <div class="missao-grid">
+      <div class="missao-card"><div class="missao-icone">🛡️</div><h3>Resgate</h3><p>Resgatamos animais em situação de risco com atendimento veterinário imediato.</p></div>
+      <div class="missao-card"><div class="missao-icone">🏠</div><h3>Lar Temporário</h3><p>Nossos voluntários acolhem os animais com carinho até encontrar a família ideal.</p></div>
+      <div class="missao-card"><div class="missao-icone">👨‍👩‍👧</div><h3>Adoção Responsável</h3><p>Processo cuidadoso para garantir que cada animal encontre um lar permanente.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VÍDEO ── -->
+<div class="section">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Conheça nosso trabalho</div>
+      <h2>Veja como funciona a adoção</h2>
+    </div>
+  </div>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border)">
+    <video
+      controls
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:var(--radius);object-fit:cover"
+      poster="">
+      <source src="img/video_ong.mp4" type="video/mp4"/>
+      Seu navegador não suporta vídeo HTML5.
+    </video>
+  </div>
+</div>
+
+<!-- ── ANIMAIS ── -->
+<div class="section">
+  <div class="section-header">
+    <div><div class="section-label">Prontinhos para adoção</div><h2>Conheça nossos animais</h2></div>
+    <a href="pages/animais.html">Ver todos →</a>
+  </div>
+  <div class="filtros">
+    <button class="filtro-btn active" onclick="filterHome('all',this)">Todos</button>
+    <button class="filtro-btn" onclick="filterHome('cao',this)">🐕 Cães</button>
+    <button class="filtro-btn" onclick="filterHome('gato',this)">🐱 Gatos</button>
+    <button class="filtro-btn" onclick="abrirModalRecomendacao()">
+       🤖 Encontrar meu match
+    </button>
+  </div>
+  <div class="animais-grid" id="animalGrid">
+    <div class="loading"><div class="spinner"></div><p>Buscando animais...</p></div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div class="dashboard-wrap">
+  <div class="section">
+    <div class="section-header">
+      <div><div class="section-label">Análise de dados</div><h2>Painel de adoções</h2></div>
+      <span class="dash-simulated-badge dash-simulated">📊 Dados simulados</span>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card"><div class="dash-icon">🐾</div><div class="dash-val" id="dash-total-animals">—</div><div class="dash-label">Animais cadastrados</div></div>
+      <div class="dash-card green"><div class="dash-icon">✅</div><div class="dash-val" id="dash-available">—</div><div class="dash-label">Disponíveis agora</div></div>
+      <div class="dash-card blue"><div class="dash-icon">🏠</div><div class="dash-val" id="dash-adoptions">—</div><div class="dash-label">Adoções realizadas</div></div>
+      <div class="dash-card purple"><div class="dash-icon">📅</div><div class="dash-val" id="dash-month-adoptions">—</div><div class="dash-label">Adoções este mês</div></div>
+      <div class="dash-card"><div class="dash-icon">👤</div><div class="dash-val" id="dash-adopters">—</div><div class="dash-label">Adotantes</div></div>
+      <div class="dash-card green"><div class="dash-icon">💰</div><div class="dash-val" id="dash-raised">—</div><div class="dash-label">Total arrecadado</div></div>
+    </div>
+    <div class="dash-rate-wrap">
+      <div class="dash-rate-row">
+        <span class="dash-rate-label">Taxa de adoção — animais que encontraram um lar</span>
+        <span class="dash-rate-val" id="dash-rate">—</span>
+      </div>
+      <div class="dash-bar-bg"><div class="dash-bar-fill" id="dash-rate-bar"></div></div>
+    </div>
+    <div class="dash-chart-wrap">
+      <div class="dash-chart-label">📈 Adoções e doações mensais — 2026 <small style="color:var(--text-muted)"></small></div>
+      <canvas id="monthlyChart" style="width:100%;height:200px"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ── BANNER ── -->
+<section class="banner">
+  <div class="banner-inner">
+    <h2>Ajude a Coração Animal 💛</h2>
+    <p>Sua doação garante ração, vacinas e cuidados veterinários.</p>
+    <a href="javascript:void(0)" class="btn-banner"
+      onclick="requireLogin('pages/doacoes.html','Faça login para fazer uma doação')">
+      Fazer uma doação
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><span>🐾</span> Coração Animal</div>
+    <ul class="footer-links">
+      <li><a href="pages/animais.html">Animais</a></li>
+      <li><a href="pages/adocao.html">Adoção</a></li>
+      <li><a href="pages/doacoes.html">Doações</a></li>
+      <li><a href="pages/voluntarios.html">Voluntários</a></li>
+    </ul>
+    <div class="footer-copy">
+      © 2026 Coração Animal · PIM III — UNIP ·
+      <a href="pages/login.html" style="color:var(--text-muted);opacity:.5;text-decoration:none"
+        onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.5">Admin</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── ADOPTION MODAL ── -->
+<div id="adoptionModal" class="adoption-modal-overlay" onclick="closeAdoptionModal()">
+  <div class="adoption-modal-box" onclick="event.stopPropagation()">
+    <div class="adoption-modal-header">
+      <div class="adoption-modal-title">🧡 Quero adotar</div>
+      <button onclick="closeAdoptionModal()" style="background:transparent;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:6px">✕</button>
+    </div>
+    <div class="adoption-modal-body">
+      <!-- Animal summary -->
+      <div class="animal-summary">
+        <div class="animal-summary-photo" id="adoptionAnimalPhoto"></div>
+        <div>
+          <div id="adoptionAnimalName" style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text)"></div>
+          <div id="adoptionAnimalInfo" style="font-size:13px;color:var(--text-muted);font-family:'DM Sans',sans-serif;margin-top:2px"></div>
+          <div style="font-size:12px;color:#2e7d32;font-family:'DM Sans',sans-serif;margin-top:4px;font-weight:500">✅ Disponível para adoção</div>
+        </div>
+      </div>
+      <div id="adoptionFeedback" class="modal-feedback"></div>
+      <!-- Form -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div class="form-grupo" style="grid-column:1/-1">
+          <label>Nome completo <span style="color:var(--laranja)">*</span></label>
+          <input type="text" id="adoptName" placeholder="Seu nome completo"/>
+          <div class="erro-msg" id="errAdoptName"></div>
+        </div>
+        <div class="form-grupo">
+          <label>E-mail <span style="color:var(--laranja)">*</span></label>
+          <input type="email" id="adoptEmail" placeholder="seu@email.com"/>
+          <div class="erro-msg" id="errAdoptEmail"></div>
+        </div>
+        <div class="form-grupo">
+          <label>Telefone <span style="color:var(--laranja)">*</span></label>
+          <input type="text" id="adoptPhone" placeholder="(11) 99999-9999" oninput="maskPhone(this)"/>
+          <div class="erro-msg" id="errAdoptPhone"></div>
+        </div>
+        <div class="form-grupo" style="grid-column:1/-1">
+          <label>Endereço <span style="color:var(--laranja)">*</span></label>
+          <input type="text" id="adoptAddress" placeholder="Rua, número, cidade — UF"/>
+          <div class="erro-msg" id="errAdoptAddress"></div>
+        </div>
+        <div class="form-grupo">
+          <label>Tipo de residência <span style="color:var(--laranja)">*</span></label>
+          <select id="adoptResidence">
+            <option value="">Selecione</option>
+            <option value="casa">🏠 Casa</option>
+            <option value="apartamento">🏢 Apartamento</option>
+            <option value="chacara">🌳 Sítio/Chácara</option>
+          </select>
+          <div class="erro-msg" id="errAdoptResidence"></div>
+        </div>
+        <div class="form-grupo">
+          <label>Tem outros pets?</label>
+          <select id="adoptHasPets">
+            <option value="">Selecione</option>
+            <option value="nao">Não</option>
+            <option value="sim_caes">Sim — cães</option>
+            <option value="sim_gatos">Sim — gatos</option>
+            <option value="sim_ambos">Sim — cães e gatos</option>
+          </select>
+        </div>
+        <div class="form-grupo" style="grid-column:1/-1">
+          <label>Observações (opcional)</label>
+          <textarea id="adoptNotes" placeholder="Conte sobre você e por que quer adotar este animal..." style="height:80px;resize:vertical;width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:14px;color:var(--text);outline:none;font-family:'DM Sans',sans-serif"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="adoption-modal-footer">
+      <button onclick="closeAdoptionModal()" style="background:transparent;border:1px solid var(--border);border-radius:50px;padding:9px 20px;font-size:14px;font-family:'DM Sans',sans-serif;cursor:pointer;color:var(--text-sec)">Cancelar</button>
+      <button id="btnSubmitAdoption" onclick="submitAdoption()" style="background:var(--laranja);color:white;border:none;border-radius:50px;padding:9px 24px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer">🧡 Confirmar interesse</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/tema.js"></script>
+<script src="js/animais.js"></script>
+<script src="js/adoption.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/recomendacao.js"></script>
+<script>
+  let _allAnimals = [];
+
+  // Carrega animais para grid da página inicial
+  async function loadHomeAnimals() {
+    _allAnimals = await fetchAnimals();
+    const available = _allAnimals.filter(a => a.statusAdocao === 'disponivel');
+    const statEl = document.getElementById('statDisponiveis');
+    if (statEl) statEl.textContent = available.length;
+    renderHomeGrid(available.slice(0, 6));
+  }
+
+  function renderHomeGrid(animals) {
+    const grid = document.getElementById('animalGrid');
+    if (!animals.length) {
+      grid.innerHTML = '<div class="empty"><p>🐾 Nenhum animal disponível no momento.</p></div>';
+      return;
+    }
+    grid.innerHTML = animals.map(a => generateAnimalCard(a, true)).join('');
+  }
+
+  function filterHome(species, btn) {
+    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const available = _allAnimals.filter(a => a.statusAdocao === 'disponivel');
+    const filtered  = species === 'all' ? available : available.filter(a => a.especie === species);
+    renderHomeGrid(filtered.slice(0, 6));
+  }
+
+  // Show admin register button
+  document.addEventListener('DOMContentLoaded', () => {
+    if (isAdmin()) {
+      const btn = document.getElementById('navRegisterBtn');
+      if (btn) btn.style.display = 'flex';
+    }
+    loadHomeAnimals();
+  });
+</script>
+</body>
+</html>
