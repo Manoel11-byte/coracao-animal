@@ -52,7 +52,7 @@ for tag in soup.find_all(True):
     if tag.get('href', '').startswith('javascript:'):
         tag['href'] = '/portal.html#animais'
 # Keep integration fixes after imported CSS so re-import/build cannot undo them.
-soup.head.append(soup.new_tag('link', rel='stylesheet', href='/css/integrated-home.css'))
+soup.head.append(soup.new_tag('link', rel='stylesheet', href='/css/integrated-home.css?v=1.0.2'))
 chart = soup.find(id='monthlyChart')
 if chart:
     replacement = soup.new_tag('div', id='monthlyChart')
@@ -63,6 +63,6 @@ if label:
     label.string = 'Adoções e doações mensais'
 for tag in soup.select('[data-auth]'):
     tag['hidden'] = ''
-script = soup.new_tag('script', src='/js/home-integrated.js', type='module')
+script = soup.new_tag('script', src='/js/home-integrated.js?v=1.0.2', type='module')
 soup.body.append(script)
 (target / 'index.html').write_text(str(soup), encoding='utf-8')

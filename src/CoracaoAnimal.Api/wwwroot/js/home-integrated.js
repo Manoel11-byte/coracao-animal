@@ -1,4 +1,4 @@
-import {renderMonthlyCharts} from './home-charts.js';
+import {renderMonthlyCharts} from './home-charts.js?v=1.0.2';
 const E=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let animals=[], user=null;
 const go=path=>{location.href='/portal.html#'+path;};
