@@ -8,8 +8,8 @@ const values = series => Array.from({length:12}, (_,i) => {
 // SVG uses CSS pixels at the current container size, retaining crisp labels on
 // high-density screens without stretching a fixed 300x150 canvas bitmap.
 function plot(host, series, title, kind, format) {
- const width = Math.max(260, Math.round(host.getBoundingClientRect().width));
- const height = 240, left = kind === 'donations' ? 70 : 34, right = 12, top = 22, bottom = 38;
+ const width = Math.max(160, Math.round(host.getBoundingClientRect().width));
+ const height = 240, left = kind === 'donations' ? (width<300?56:70) : 34, right = 12, top = 22, bottom = 38;
  const plotWidth = width-left-right, plotHeight = height-top-bottom;
  const peak = Math.max(...series);
  const step = kind === 'adoptions' ? Math.max(1, Math.ceil(peak/4)) : Math.max(1, Math.ceil(peak/4));
@@ -22,7 +22,7 @@ function plot(host, series, title, kind, format) {
  }
  series.forEach((value,i)=>{
   const slot=plotWidth/12, x=left+i*slot+slot*.18, h=value/max*plotHeight;
-  drawing+=`<rect class="chart-bar ${kind}" x="${x}" y="${height-bottom-h}" width="${slot*.64}" height="${h}" rx="2"><title>${months[i]}: ${format(value)}</title></rect><text x="${left+(i+.5)*slot}" y="${height-13}" text-anchor="middle">${months[i]}</text>`;
+  drawing+=`<rect class="chart-bar ${kind}" x="${x}" y="${height-bottom-h}" width="${slot*.64}" height="${h}" rx="2"><title>${months[i]}: ${format(value)}</title></rect><text x="${left+(i+.5)*slot}" y="${height-13}" text-anchor="middle">${width<300&&i%2?'':months[i]}</text>`;
  });
  host.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="${title}. Valores disponíveis na tabela abaixo." style="font:11px sans-serif;fill:currentColor">${drawing}</svg>`;
 }
