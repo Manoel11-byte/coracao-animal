@@ -1,3 +1,14 @@
+# Revisão 1.0.2 - outubro de 2026
+
+- Fotos da página inicial com altura fixa e informações dos animais visíveis.
+- Gráficos SVG responsivos separados para adoções e doações, com tabela acessível e estados vazios.
+- Falha do painel não apaga o catálogo; botão para tentar novamente.
+- Android/Windows: valores com vírgula ou ponto preservados, sessão expirada encaminha ao login, mensagens de conexão e contrato legíveis.
+- Windows: fotos também no catálogo e controles ajustados à largura disponível.
+- A API mantém o endereço de produção e os contratos existentes. Administração continua exclusiva do site.
+
+Os pacotes desta revisão devem ser obtidos nos artefatos da execução correspondente em Actions até a publicação de uma nova release. Os links v1.0.1 abaixo são históricos e não contêm essas correções.
+
 # Coração Animal — PIM IV
 
 Versão 1.0.1 — API, site, Android e Windows integrados ao Azure SQL da assinatura do proprietário.

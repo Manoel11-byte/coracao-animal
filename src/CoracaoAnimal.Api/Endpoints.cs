@@ -11,11 +11,11 @@ public static class Endpoints {
  public static void MapApi(this WebApplication app){
   var api=app.MapGroup("/api");
   api.MapGet("/resumo",async(AppDb db)=>{
-   var now=DateTime.UtcNow;var start=new DateTime(now.Year,1,1);var month=new DateTime(now.Year,now.Month,1);
+   var now=DateTime.UtcNow;var start=new DateTime(now.Year,1,1);var month=new DateTime(now.Year,now.Month,1);var end=start.AddYears(1);var nextMonth=month.AddMonths(1);
    var total=await db.Animais.CountAsync(x=>!x.Arquivado);var adopted=await db.Animais.CountAsync(x=>!x.Arquivado&&x.Status=="adotado");
-   var dates=await db.Adocoes.Where(x=>x.Status=="concluida"&&x.AtualizadoEm>=start).Select(x=>x.AtualizadoEm).ToListAsync();
-   var donations=await db.Doacoes.Where(x=>x.Status=="confirmada"&&x.CriadoEm>=start).Select(x=>new{x.CriadoEm,x.Valor}).ToListAsync();
-   return new{totalAnimais=total,disponiveis=await db.Animais.CountAsync(x=>!x.Arquivado&&x.Status=="disponivel"),adocoesConcluidas=await db.Adocoes.CountAsync(x=>x.Status=="concluida"),adocoesMes=dates.Count(x=>x>=month),adotantes=await db.Adotantes.CountAsync(),doacoesConfirmadas=(await db.Doacoes.Where(x=>x.Status=="confirmada").Select(x=>x.Valor).ToListAsync()).Sum(),taxa=total==0?0:Math.Round(adopted*100.0/total),adocoesPorMes=Enumerable.Range(1,12).Select(m=>dates.Count(x=>x.Month==m)).ToArray(),doacoesPorMes=Enumerable.Range(1,12).Select(m=>donations.Where(x=>x.CriadoEm.Month==m).Sum(x=>x.Valor)).ToArray()};
+   var dates=await db.Adocoes.Where(x=>x.Status=="concluida"&&x.AtualizadoEm>=start&&x.AtualizadoEm<end).Select(x=>x.AtualizadoEm).ToListAsync();
+   var donations=await db.Doacoes.Where(x=>x.Status=="confirmada"&&x.CriadoEm>=start&&x.CriadoEm<end).Select(x=>new{x.CriadoEm,x.Valor}).ToListAsync();
+   return new{ano=now.Year,totalAnimais=total,disponiveis=await db.Animais.CountAsync(x=>!x.Arquivado&&x.Status=="disponivel"),adocoesConcluidas=await db.Adocoes.CountAsync(x=>x.Status=="concluida"),adocoesMes=dates.Count(x=>x>=month&&x<nextMonth),adotantes=await db.Adotantes.CountAsync(),doacoesConfirmadas=(await db.Doacoes.Where(x=>x.Status=="confirmada").Select(x=>x.Valor).ToListAsync()).Sum(),taxa=total==0?0:Math.Round(adopted*100.0/total),adocoesPorMes=Enumerable.Range(1,12).Select(m=>dates.Count(x=>x.Month==m)).ToArray(),doacoesPorMes=Enumerable.Range(1,12).Select(m=>donations.Where(x=>x.CriadoEm.Month==m).Sum(x=>x.Valor)).ToArray()};
   });
   api.MapPost("/auth/cadastro",async(Cadastro i,Contas service)=>{await service.Cadastrar(i);return Results.Created("/api/me",new{mensagem="Conta criada."});}).RequireRateLimiting("auth");
   api.MapPost("/auth/login",async(Login i,Contas service,HttpContext c)=>{var s=await service.Entrar(i);if(i.Cliente=="web")c.Response.Cookies.Append(SessionAuth.Cookie,s.Token!,new CookieOptions{HttpOnly=true,Secure=c.Request.IsHttps,SameSite=SameSiteMode.Strict,Path="/",Expires=new DateTimeOffset(s.ExpiraEm)});return s with{Token=i.Cliente=="app"?s.Token:null};}).RequireRateLimiting("auth");

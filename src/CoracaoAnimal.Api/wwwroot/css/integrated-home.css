@@ -1,0 +1,29 @@
+/* Integration fixes kept separate from the imported visual reference. */
+.animal-card { display: flex; flex-direction: column; min-width: 0; }
+.animal-foto { display: block; flex: 0 0 auto; width: 100%; height: 240px; }
+.animal-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.animal-info { display: flex; flex: 1; flex-direction: column; gap: 10px; }
+.animal-info .btn-outline-full { margin-top: auto; }
+.animal-desc { overflow-wrap: anywhere; }
+.monthly-charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.monthly-series { min-width: 0; }
+.monthly-series h3 { font-size: 15px; color: var(--text); margin-bottom: 4px; }
+.monthly-series p, .chart-note { font-size: 12px; color: var(--text-sec); line-height: 1.6; }
+.monthly-series svg { display: block; width: 100%; height: 240px; color: var(--text-sec); }
+.chart-grid { stroke: var(--border); stroke-width: 1; }
+.chart-bar.adoptions { fill: var(--laranja); }
+.chart-bar.donations { fill: var(--verde); }
+.chart-values { margin-top: 16px; color: var(--text-sec); font-size: 13px; }
+.chart-values summary { cursor: pointer; padding: 8px 0; }
+.chart-table-scroll { overflow-x: auto; }
+.chart-values table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.chart-values th, .chart-values td { text-align: left; padding: 10px; border-bottom: 1px solid var(--border); }
+.home-data-error { padding: 24px; color: var(--text-sec); grid-column: 1 / -1; }
+.home-data-error button { margin-top: 12px; }
+[data-auth][hidden] { display: none !important; }
+@media (max-width: 720px) {
+  .monthly-charts { grid-template-columns: 1fr; }
+  .dash-rate-row { gap: 16px; }
+  .dash-rate-val { flex-shrink: 0; }
+  .animais-grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); }
+}

@@ -8,7 +8,7 @@
 <link href="css/style.css" rel="stylesheet"/>
 <link href="css/home.css" rel="stylesheet"/>
 
-<link href="/css/original-home-inline.css" rel="stylesheet"/></head>
+<link href="/css/original-home-inline.css" rel="stylesheet"/><link href="/css/integrated-home.css" rel="stylesheet"/></head>
 <body>
 
 
@@ -33,19 +33,19 @@
 <span></span><span></span><span></span>
 </button>
 <!-- Admin only: Register Animal -->
-<a class="nav-register-btn" data-auth="admin" href="/portal.html#admin/animais" id="navRegisterBtn">
+<a class="nav-register-btn" hidden data-auth="admin" href="/portal.html#admin/animais" id="navRegisterBtn">
       + Cadastrar Animal
     </a>
 <!-- Admin only: Painel -->
-<a class="nav-register-btn" data-auth="admin" href="/portal.html#admin" id="navAdminBtn" style="background:transparent;border:1px solid var(--border);color:var(--text-sec);">
+<a class="nav-register-btn" hidden data-auth="admin" href="/portal.html#admin" id="navAdminBtn" style="background:transparent;border:1px solid var(--border);color:var(--text-sec);">
       ⚙ Admin
     </a>
 <!-- Not logged in -->
-<a class="btn-cta" data-auth="logged-out" href="/portal.html#animais">
+<a class="btn-cta" hidden data-auth="logged-out" href="/portal.html#animais">
       🧡 Adote Agora
     </a>
 <!-- Logged in -->
-<div data-auth="logged-in" style="display:none;align-items:center;gap:8px">
+<div hidden data-auth="logged-in" style="display:none;align-items:center;gap:8px">
 <span style="font-size:13px;color:var(--text-sec);font-family:'DM Sans',sans-serif">
         Olá, <strong data-username="" style="color:var(--laranja)"></strong>
 </span>
@@ -60,7 +60,7 @@
 <a href="/portal.html#voluntariado">Como Ajudar</a>
 <div class="nav-mobile-divider"></div>
 <a href="/portal.html#doacoes">Doações</a>
-<a data-auth="admin" href="/portal.html#admin/animais" style="display:none;color:var(--laranja);font-weight:600">+ Cadastrar Animal</a>
+<a hidden data-auth="admin" href="/portal.html#admin/animais" style="display:none;color:var(--laranja);font-weight:600">+ Cadastrar Animal</a>
 </div>
 <!-- ── HERO ── -->
 <section class="hero-section">
@@ -167,8 +167,8 @@
 <div class="dash-bar-bg"><div class="dash-bar-fill" id="dash-rate-bar"></div></div>
 </div>
 <div class="dash-chart-wrap">
-<div class="dash-chart-label">📈 Adoções e doações mensais — 2026 <small style="color:var(--text-muted)"></small></div>
-<canvas id="monthlyChart" style="width:100%;height:200px"></canvas>
+<div class="dash-chart-label">Adoções e doações mensais <small style="color:var(--text-muted)"></small></div>
+<div id="monthlyChart" aria-live="polite"></div>
 </div>
 </div>
 </div>
