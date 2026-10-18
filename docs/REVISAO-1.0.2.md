@@ -19,9 +19,10 @@ A revisão também fixa System.Security.Cryptography.Pkcs em 10.0.13, corrigida 
 - 37 casos .NET aprovados em ambiente local, incluindo o cliente HTTP real compartilhado, conta/histórico web-app, separadores monetários, mensagens de erro, sessão e séries mensais.
 - Roteiro DOM com API/SQLite real aprovado para cadastro, login, perfil, adoção, doação, voluntariado e cadastro administrativo de animal.
 - A API publicada respondeu HTTP 200 em /health/ready durante a revisão.
-- O pipeline contém teste visual Chromium em 1440, 390 e 320 pixels; verificar o resultado da execução e seus artefatos antes de afirmar aprovação visual.
+- Teste visual Chromium aprovado em 1440, 390 e 320 pixels, incluindo catálogo, filtros, gráficos vazios/com valores fictícios, nova tentativa após falha e fluxos de conta/adoção/doação/voluntariado/administração. Evidências na execução 39118463726 do GitHub Actions.
+- Teste de inicialização em Windows aprovado: executável permaneceu aberto por dez segundos. Não é uma validação completa de uso em dispositivo físico.
 - Compilar pacotes não substitui instalá-los e executá-los em dispositivos Android e Windows físicos.
 
 ## Publicação
 
-A alteração no GitHub aciona a compilação e o empacotamento. Isso não atualiza automaticamente o Azure: a implantação permanece no fluxo separado, com acesso autenticado à assinatura. Os pacotes antigos da release v1.0.1 permanecem antigos até nova distribuição.
+A execução 39118463726 compilou e empacotou API/site, Windows e Android sem falhas. A versão foi implantada em 18/10/2026 no App Service existente. Após a implantação, /health/ready respondeu HTTP 200 e o endpoint /api/resumo retornou as duas séries mensais e o ano. Os pacotes 1.0.2 são distribuídos na release correspondente; a release 1.0.1 é histórica. Não há alteração destrutiva do banco nesta revisão.

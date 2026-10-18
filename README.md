@@ -1,17 +1,6 @@
-# Revisão 1.0.2 - outubro de 2026
-
-- Fotos da página inicial com altura fixa e informações dos animais visíveis.
-- Gráficos SVG responsivos separados para adoções e doações, com tabela acessível e estados vazios.
-- Falha do painel não apaga o catálogo; botão para tentar novamente.
-- Android/Windows: valores com vírgula ou ponto preservados, sessão expirada encaminha ao login, mensagens de conexão e contrato legíveis.
-- Windows: fotos também no catálogo e controles ajustados à largura disponível.
-- A API mantém o endereço de produção e os contratos existentes. Administração continua exclusiva do site.
-
-Os pacotes desta revisão devem ser obtidos nos artefatos da execução correspondente em Actions até a publicação de uma nova release. Os links v1.0.1 abaixo são históricos e não contêm essas correções.
-
 # Coração Animal — PIM IV
 
-Versão 1.0.1 — API, site, Android e Windows integrados ao Azure SQL da assinatura do proprietário.
+Versão 1.0.2 — API, site, Android e Windows integrados ao Azure SQL da assinatura do proprietário.
 
 - Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
 - Conta e catálogo: https://coracao-pkzqbhzfiqlry.azurewebsites.net/portal.html#animais
@@ -19,13 +8,25 @@ Versão 1.0.1 — API, site, Android e Windows integrados ao Azure SQL da assina
 - Saúde e banco: https://coracao-pkzqbhzfiqlry.azurewebsites.net/health/ready
 - Downloads: https://github.com/Manoel11-byte/coracao-animal/releases/latest
 
-Os apps conectam automaticamente ao endereço acima. Instale os pacotes da versão 1.0.1. Caso o Android recuse atualizar uma instalação antiga devido à assinatura, desinstale o APK anterior e instale o novo; os dados do servidor permanecem no Azure.
+Os apps conectam automaticamente ao endereço acima. Instale os pacotes da versão 1.0.2. Caso o Android recuse atualizar uma instalação antiga devido à assinatura, desinstale o APK anterior e instale o novo; os dados do servidor permanecem no Azure.
 
 Luna, Nino, Mel, Thor, Amora e Bento são animais fictícios, com fotografias de demonstração. Cadastre uma conta e complete seu perfil para testar adoções. Doações registram intenções, sem cobrança automática. A área administrativa fica somente no site.
 
 A página inicial mantém o layout e os materiais do projeto original de https://github.com/m4rcosJr/coracao-animal. As funções autenticadas utilizam o portal integrado, com a mesma paleta de cores.
 
 Solução integrada baseada no projeto Coração Animal fornecido pelo usuário. Site ASP.NET Core, aplicativo Android .NET MAUI e aplicativo Windows WinForms usam a mesma API e o mesmo banco. **Administração exclusivamente pelo site.**
+
+## Revisão 1.0.2
+
+- Cards com fotos de altura uniforme e informações visíveis.
+- Gráficos SVG responsivos de adoções e doações, escalas separadas, tabela acessível e indicação de ausência de registros.
+- Catálogo preservado quando o painel falha, com nova tentativa.
+- Android/Windows: leitura correta de valores com ponto ou vírgula decimal, sessão expirada encaminhada ao login e mensagens claras de erro.
+- Windows com fotos no catálogo, controles adaptáveis e teste de inicialização aprovado.
+- 37 testes .NET aprovados; testes Chromium de cadastro, login, perfil, adoção, doação, voluntariado e administração aprovados em ambiente local isolado, com revisão responsiva em 1440, 390 e 320 pixels.
+- Publicação atualizada no Azure. A execução em dispositivos Android/Windows físicos continua sendo uma etapa de aceite.
+
+Veja `docs/REVISAO-1.0.2.md` para detalhes e limites da validação.
 
 ## Comece aqui
 
@@ -44,7 +45,7 @@ A configuração Development cria um banco SQLite local. Em produção o provedo
 - Site com área pública, conta, preferências, adoções, intenções de doação, voluntariado e administração.
 - API .NET com sessões no servidor, autorização, validação e transações.
 - Windows x64: publicação independente do runtime, em arquivo EXE. Interface nativa WinForms.
-- Android 7/API 24 ou superior: interface nativa MAUI. APK Debug para avaliação; publicação oficial exige chave de assinatura própria.
+- Android 7/API 24 ou superior: interface nativa MAUI. APK assinado para avaliação; publicação oficial exige chave de assinatura própria.
 - Azure: site e API publicados no App Service existente, dados no Azure SQL e fotos no Blob Storage.
 - Documentação de arquitetura, banco, API, instalação, implantação e matriz do manual.
 
