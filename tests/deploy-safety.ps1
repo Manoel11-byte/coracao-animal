@@ -28,4 +28,10 @@ try {
   if($global:CoracaoTestCommands | Where-Object {$_ -match '^(deployment|group create|keyvault)'}){throw 'A write was attempted'}
  }
  Write-Output 'PASS: existing resources and failed queries stop before mutation or prompts.'
-} finally {Remove-Item Function:\az;Remove-Item Function:\Read-Host;Remove-Variable CoracaoTestCommands,CoracaoTestQueryFails -Scope Global}
+} finally {
+ Remove-Item Function:\az;Remove-Item Function:\Read-Host
+ Remove-Variable CoracaoTestCommands,CoracaoTestQueryFails -Scope Global
+ # A simulated native failure must not become PowerShell's process exit code
+ # after the expected exception has been asserted successfully.
+ $global:LASTEXITCODE=0
+}

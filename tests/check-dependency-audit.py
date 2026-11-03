@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 report = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8-sig"))
-issues = [p for p in report.get("problems", []) if p.get("level") == "error"]
+issues = list(report.get("problems", []))
 for project in report.get("projects", []):
     for framework in project.get("frameworks", []):
         for group in ("topLevelPackages", "transitivePackages"):

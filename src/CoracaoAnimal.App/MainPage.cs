@@ -67,7 +67,7 @@ public sealed class MainPage : ContentPage
   var group=new VerticalStackLayout {Spacing=4};group.Add(new Label {Text=name,FontSize=13,FontAttributes=FontAttributes.Bold,TextColor=Ink});group.Add(entry);body.Add(Surface(group));return entry;
  }
  sealed record Option(string Key,string Label){public override string ToString()=>Label;}
- static string Friendly(string key)=>key switch {""=>"Todos", "cao"=>"Cão", "gato"=>"Gato", "pequeno"=>"Pequeno", "medio"=>"Médio", "grande"=>"Grande", "nenhuma"=>"Primeira experiência", "alguma"=>"Alguma experiência", "muita"=>"Muita experiência", "disponivel"=>"Disponível", "em_processo"=>"Em avaliação", "adotado"=>"Adotado", "em_tratamento"=>"Em tratamento", "pendente"=>"Aguardando avaliação", "aprovada"=>"Aprovada", "concluida"=>"Concluída", "cancelada"=>"Cancelada", "confirmada"=>"Confirmada", "ativo"=>"Ativo", "inativo"=>"Inativo", "pix"=>"Pix", "transferencia"=>"Transferência", "dinheiro"=>"Dinheiro", _=>key};
+ static string Friendly(string key)=>key switch {""=>"Todos", "cao"=>"Cão", "gato"=>"Gato", "pequeno"=>"Pequeno", "medio"=>"Médio", "grande"=>"Grande", "nenhuma"=>"Primeira experiência", "alguma"=>"Alguma experiência", "muita"=>"Muita experiência", "disponivel"=>"Disponível", "em_processo"=>"Em avaliação", "adotado"=>"Adotado", "em_tratamento"=>"Em tratamento", "pendente"=>"Pendente", "aprovada"=>"Aprovada", "concluida"=>"Concluída", "cancelada"=>"Cancelada", "confirmada"=>"Confirmada", "ativo"=>"Ativo", "inativo"=>"Inativo", "pix"=>"Pix", "transferencia"=>"Transferência", "dinheiro"=>"Dinheiro", _=>key};
  Picker Choice(string label,string[] items,string? selected=null)
  {
   var picker=new Picker {Title=label,ItemsSource=items.Select(x=>new Option(x,Friendly(x))).ToArray(),SelectedIndex=Math.Max(0,Array.IndexOf(items,selected)),TextColor=Ink,BackgroundColor=Colors.Transparent,MinimumHeightRequest=48};
@@ -105,13 +105,18 @@ public sealed class MainPage : ContentPage
   Page(recommend?"Companheiros para você":"Seu novo amigo está aqui",recommend?"Sugestões baseadas no seu perfil. A equipe acompanha cada adoção.":"Conheça histórias, encontre afinidades e adote com responsabilidade.");
   if(!recommend)
   {
-   Action("Ver animais que combinam comigo",()=>Catalog(true),true);
-   var search=Field("Nome ou raça",busca);
    var filters=new VerticalStackLayout {Spacing=10,IsVisible=especie.Length>0||porte.Length>0};
    var sp=Choice("Espécie",["","cao","gato"],especie);var speciesView=body.Children[^1];body.Remove(speciesView);filters.Add(speciesView);
    var size=Choice("Porte",["","pequeno","medio","grande"],porte);var sizeView=body.Children[^1];body.Remove(sizeView);filters.Add(sizeView);
-   Action("Filtrar por espécie e porte",()=>{filters.IsVisible=!filters.IsVisible;return Task.CompletedTask;},true);body.Add(filters);
-   Action("Buscar animais",()=>Catalog(false,1,search.Text??"",Value(sp),Value(size)));
+   var search=new Entry {Text=busca,Placeholder="Nome ou raça",TextColor=Ink,PlaceholderColor=Muted,BackgroundColor=Colors.Transparent,MinimumHeightRequest=48,FontSize=16,ReturnType=ReturnType.Search};
+   SemanticProperties.SetDescription(search,"Buscar por nome ou raça");
+   Func<Task> searchAnimals=()=>Catalog(false,1,search.Text??"",Value(sp),Value(size));
+   search.Completed+=async(_,_)=>await Run(searchAnimals);
+   var searchRow=new Grid {ColumnDefinitions={new ColumnDefinition(GridLength.Star),new ColumnDefinition(GridLength.Auto)},ColumnSpacing=8};
+   var searchBox=Surface(search);searchBox.Padding=new Thickness(12,0);searchRow.Add(searchBox,0,0);searchRow.Add(Button("Buscar",searchAnimals),1,0);body.Add(searchRow);
+   var tools=new Grid {ColumnDefinitions={new ColumnDefinition(GridLength.Star),new ColumnDefinition(GridLength.Star)},ColumnSpacing=8};
+   tools.Add(Button("Filtros",()=>{filters.IsVisible=!filters.IsVisible;return Task.CompletedTask;},true),0,0);tools.Add(Button("Para você",()=>Catalog(true),true),1,0);body.Add(tools);
+   filters.Add(Button("Aplicar filtros",searchAnimals));body.Add(filters);
    Note($"{data?.Total??0} animal(is) encontrado(s)");
   }
   else Action("Voltar a todos os animais",()=>Catalog(),true);

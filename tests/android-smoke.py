@@ -48,7 +48,7 @@ apks = sorted(Path("src/CoracaoAnimal.App/bin/Release/net10.0-android").glob("*S
 assert apks, "Signed APK missing"
 adb("install", "-r", str(apks[0]))
 adb("shell", "monkey", "-p", package, "-c", "android.intent.category.LAUNCHER", "1")
-find("Buscar animais")
+find("Buscar")
 screenshot("01-explorar")
 tap("Ajudar")
 find("Cada gesto faz diferença")

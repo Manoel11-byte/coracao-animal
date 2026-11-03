@@ -10,3 +10,4 @@ artifacts/
 .env
 infra/*.local.json
 .vs/
+**/__pycache__/
