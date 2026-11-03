@@ -10,21 +10,26 @@ output.mkdir(parents=True, exist_ok=True)
 package = "br.org.coracaoanimal.app"
 
 def adb(*args):
-    return subprocess.check_output(["adb", *args])
+    return subprocess.check_output(["adb", *args], timeout=20)
 
 def tree():
+    adb("shell", "rm", "-f", "/sdcard/coracao-ui.xml")
     adb("shell", "uiautomator", "dump", "/sdcard/coracao-ui.xml")
     return ET.fromstring(adb("shell", "cat", "/sdcard/coracao-ui.xml"))
 
 def find(text, timeout=75):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
-        for node in tree().iter("node"):
-            if node.get("text") == text or node.get("content-desc", "").split(",")[0] == text:
-                return node
-        if not adb("shell", "pidof", package).strip():
-            raise RuntimeError("Android app exited unexpectedly")
+        try:
+            for node in tree().iter("node"):
+                if node.get("text") == text or node.get("content-desc", "").split(",")[0] == text:
+                    return node
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired, ET.ParseError):
+            # Android can expose a null accessibility root during its splash
+            # transition; keep waiting within the same bounded deadline.
+            pass
         time.sleep(1)
+    screenshot("failure")
     raise AssertionError(f"Android UI did not show {text!r}")
 
 def tap(text):
@@ -34,7 +39,10 @@ def tap(text):
 
 def screenshot(name):
     (output / f"{name}.png").write_bytes(adb("exec-out", "screencap", "-p"))
-    (output / f"{name}.xml").write_bytes(ET.tostring(tree()))
+    try:
+        (output / f"{name}.xml").write_bytes(ET.tostring(tree()))
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired, ET.ParseError):
+        (output / f"{name}-logcat.txt").write_bytes(adb("logcat", "-d", "-t", "300"))
 
 apks = sorted(Path("src/CoracaoAnimal.App/bin/Release/net10.0-android").glob("*Signed.apk"))
 assert apks, "Signed APK missing"
