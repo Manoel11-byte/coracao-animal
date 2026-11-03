@@ -3,6 +3,13 @@ $ErrorActionPreference='Stop'
 function Check-Exit { if($LASTEXITCODE -ne 0){throw 'O comando anterior falhou. A implantação foi interrompida.'} }
 $root=Split-Path $PSScriptRoot -Parent
 az account show --output table; Check-Exit
+# This entry point provisions a NEW installation. Existing installations publish
+# code with publish-web.ps1; never generate replacement credentials for them.
+$exists=az group exists --name $ResourceGroup --output tsv; Check-Exit
+if($exists -eq 'true'){
+ $existing=az resource list --resource-group $ResourceGroup --query "[?type=='Microsoft.Web/sites' || type=='Microsoft.Sql/servers' || type=='Microsoft.KeyVault/vaults'].id" --output tsv; Check-Exit
+ if($existing){throw 'Instalação existente detectada. Nenhum recurso ou segredo foi alterado. Use publish-web.ps1 para atualizar o código. Alterações de infraestrutura exigem um plano separado que preserve SKU, rede e credenciais existentes.'}
+}
 Write-Host 'A implantação cria recursos pagos: App Service B1, SQL Basic, armazenamento e logs.'
 if((Read-Host 'Confira a assinatura acima. Digite IMPLANTAR para continuar') -cne 'IMPLANTAR'){return}
 az group create --name $ResourceGroup --location $Location --output none; Check-Exit

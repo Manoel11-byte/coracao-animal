@@ -11,6 +11,13 @@ jobs:
         with:
           dotnet-version: 10.0.x
       - run: dotnet test tests/CoracaoAnimal.Tests -c Release --logger trx
+      - name: Verify provisioning safety
+        shell: pwsh
+        run: ./tests/deploy-safety.ps1
+      - name: Audit dependencies
+        run: |
+          dotnet list tests/CoracaoAnimal.Tests package --no-restore --vulnerable --include-transitive --format json > dependency-audit.json
+          python tests/check-dependency-audit.py dependency-audit.json
       - run: pip install -r scripts/requirements-site.txt
       - run: python scripts/import-original-site.py
       - uses: actions/setup-node@v4
@@ -71,6 +78,28 @@ jobs:
       - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
       - run: dotnet workload install maui-android
       - run: dotnet build src/CoracaoAnimal.App -c Release -t:SignAndroidPackage
+      - name: Audit Android dependencies
+        run: |
+          dotnet list src/CoracaoAnimal.App package --no-restore --vulnerable --include-transitive --format json > android-dependency-audit.json
+          python tests/check-dependency-audit.py android-dependency-audit.json
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Verify Android navigation
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: python tests/android-smoke.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: android-review
+          path: artifacts/android-review
       - uses: actions/upload-artifact@v4
         with:
           name: android-release
