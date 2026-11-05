@@ -1,0 +1,15 @@
+{
+  "passed": [
+    "tres sessoes independentes autenticadas no mesmo usuario no Azure",
+    "alteracao de perfil na sessao Windows visivel em web e Android",
+    "intencao Android lida nas outras sessoes e cancelada pela sessao web",
+    "voluntariado compartilhado e desativado ao final",
+    "troca de senha invalida as tres sessoes no Azure"
+  ],
+  "base": "https://coracao-pkzqbhzfiqlry.azurewebsites.net",
+  "mode": "HTTP protocol; not simultaneous native GUI",
+  "donationStatus": "cancelada",
+  "volunteerStatus": "inativo",
+  "sessions": "revoked",
+  "date": "2026-11-04 (America/Sao_Paulo)"
+}

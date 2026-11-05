@@ -1,6 +1,6 @@
 # Coração Animal — PIM IV
 
-Versão 1.0.2 — API, site, Android e Windows integrados ao Azure SQL da assinatura do proprietário.
+Distribuição atual: **Windows 1.0.5 e Android 1.0.4**, integrados ao site e à mesma API no Azure.
 
 - Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
 - Conta e catálogo: https://coracao-pkzqbhzfiqlry.azurewebsites.net/portal.html#animais
@@ -8,7 +8,16 @@ Versão 1.0.2 — API, site, Android e Windows integrados ao Azure SQL da assina
 - Saúde e banco: https://coracao-pkzqbhzfiqlry.azurewebsites.net/health/ready
 - Downloads: https://github.com/Manoel11-byte/coracao-animal/releases/latest
 
-Os apps conectam automaticamente ao endereço acima. Instale os pacotes da versão 1.0.2. Caso o Android recuse atualizar uma instalação antiga devido à assinatura, desinstale o APK anterior e instale o novo; os dados do servidor permanecem no Azure.
+Os apps conectam automaticamente ao endereço acima.
+
+- [Windows 1.0.5 x64 - ZIP com o executável](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Windows-1.0.5-x64.zip)
+- [Android 1.0.4 - APK](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Android-1.0.4.apk)
+
+- [Documentação técnica em PDF](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Documentacao-Tecnica-Coracao-Animal.pdf)
+- [Projeto completo com fontes e documentação](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Projeto-Completo-1.0.5.zip)
+- [Documentação técnica no repositório](docs/DOCUMENTACAO-TECNICA.md)
+
+O Windows 1.0.5 corrige fotos WebP. Os dois apps usam a paleta bege, marrom e laranja do site. Os arquivos publicados são os mesmos binários revisados e entregues, com hashes em SHA256SUMS.txt. O APK utiliza assinatura de desenvolvimento; a atualização de uma instalação com outra assinatura exige tratar o conflito antes de remover a instalação anterior. Os dados da conta ficam no servidor.
 
 Luna, Nino, Mel, Thor, Amora e Bento são animais fictícios, com fotografias de demonstração. Cadastre uma conta e complete seu perfil para testar adoções. Doações registram intenções, sem cobrança automática. A área administrativa fica somente no site.
 
