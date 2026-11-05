@@ -2,8 +2,9 @@
 
 ## Escopo
 
-O site e o aplicativo Windows mantêm a aparência anterior. Não foram alterados
-arquivos de `frontend` ou `src/CoracaoAnimal.Api/wwwroot`.
+Na revisão inicial, o site e o aplicativo Windows mantiveram a aparência anterior.
+A revisão complementar de 05/11/2026 corrige contraste do portal e moderniza
+a interface Windows; os detalhes estão em `REVISAO-WINDOWS-1.0.3.md`.
 
 O Android usa quatro áreas persistentes: Explorar, Adoções, Ajudar e Conta.
 O catálogo apresenta cartões, filtros expansíveis e termos legíveis. Formulários
@@ -41,10 +42,10 @@ redes selecionadas. Os IPs de saída são compartilhados pelo provedor, portanto
 essa medida reduz a exposição, mas não substitui autenticação e TLS. Antes de
 trocar plano, região ou ambiente de hospedagem, revise os IPs e as regras.
 
-A auditoria SQL com identidade gerenciada e armazenamento existente foi
-preparada, mas a ativação requer aprovação específica da nova permissão de
-acesso aos blobs. Ela não deve ser descrita como ativa até a confirmação e a
-verificação no portal. O armazenamento de logs pode ter cobrança por consumo.
+Após autorização específica do responsável, a auditoria SQL foi ativada com
+identidade gerenciada, armazenamento existente e retenção de 7 dias. O portal
+confirmou a gravação da configuração. O armazenamento de logs pode ter cobrança
+por consumo.
 
 ## Verificação
 
