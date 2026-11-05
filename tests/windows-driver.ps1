@@ -26,7 +26,8 @@ function Find-Control($name,$kind) {
 function Wait-Control($name,$kind) {
  for($i=0;$i -lt 100;$i++){
   $process.Refresh();if($process.HasExited){throw 'Application closed unexpectedly'}
-  $control=Find-Control $name $kind;if($null -ne $control -and $control.Current.IsEnabled){return $control};Start-Sleep -Milliseconds 200
+  try{$control=Find-Control $name $kind;if($null -ne $control -and $control.Current.IsEnabled){return $control}}catch{# Controls are replaced during navigation; retry lookup only.
+  };Start-Sleep -Milliseconds 200
  };throw "Control not available: $name"
 }
 try {

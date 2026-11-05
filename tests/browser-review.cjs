@@ -79,7 +79,7 @@ async function checkTextContrast(page, selector) {
  page.on('dialog',dialog=>dialog.accept());
  await page.goto(base+'/portal.html#adocoes');await page.getByRole('button',{name:'Cancelar solicitação',exact:true}).click();await page.getByText('Registro cancelado.',{exact:true}).waitFor();
  assert.equal((await page.evaluate(()=>fetch('/api/me/adocoes').then(r=>r.json())))[0].status,'cancelada');
- await page.goto(base+'/portal.html#doacoes');await page.getByRole('button',{name:'Cancelar intenção',exact:true}).click();await page.getByText('Registro cancelado.',{exact:true}).waitFor();
+ await page.goto(base+'/portal.html#doacoes');await page.getByRole('button',{name:'Cancelar intenção',exact:true}).click();await page.getByRole('button',{name:'Cancelar intenção',exact:true}).waitFor({state:'detached'});
  assert.equal((await page.evaluate(()=>fetch('/api/me/doacoes').then(r=>r.json())))[0].status,'cancelada');
  await page.goto(base+'/portal.html#voluntariado');await page.getByRole('button',{name:'Encerrar meu interesse',exact:true}).click();await page.getByText('Inativo',{exact:true}).waitFor();
  await page.locator('main [name=area]').fill('Fotografia QA');await page.getByRole('button',{name:'Salvar interesse',exact:true}).click();await page.getByText('Interesse atualizado.',{exact:true}).waitFor();
