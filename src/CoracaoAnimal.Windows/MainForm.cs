@@ -7,16 +7,16 @@ public sealed class MainForm:Form
  readonly ApiClient api=new(new Storage());
  readonly FlowLayoutPanel body=new(){Dock=DockStyle.Fill,AutoScroll=true,FlowDirection=FlowDirection.TopDown,WrapContents=false,BackColor=Theme.Beige};
  readonly Label state=new(){Dock=DockStyle.Bottom,BackColor=Color.White,ForeColor=Theme.Muted,AccessibleName="Situação da operação"};
- readonly FlowLayoutPanel menu=new(){FlowDirection=FlowDirection.TopDown,WrapContents=false,BackColor=Theme.Green};
+ readonly FlowLayoutPanel menu=new(){FlowDirection=FlowDirection.TopDown,WrapContents=false,BackColor=Theme.Sidebar};
  readonly Dictionary<string,Button> tabs=new();
  FlowLayoutPanel? catalogGrid;SurfaceCard? errorCard;bool busy,resizing;
  int D(int value)=>(int)Math.Round(value*DeviceDpi/96d);
  static Image? BrandLogo(){var a=typeof(MainForm).Assembly;var resource=a.GetManifestResourceNames().FirstOrDefault(n=>n.EndsWith("Assets.logo.png",StringComparison.OrdinalIgnoreCase));if(resource==null)return null;using var stream=a.GetManifestResourceStream(resource);if(stream==null)return null;using var image=Image.FromStream(stream);return new Bitmap(image);}
  public MainForm()
  {
-  Text="Coração Animal • Windows 1.0.3";Width=1180;Height=840;MinimumSize=new Size(900,650);StartPosition=FormStartPosition.CenterScreen;
+  Text="Coração Animal • Windows 1.0.4";Width=1180;Height=840;MinimumSize=new Size(900,650);StartPosition=FormStartPosition.CenterScreen;
   Font=Theme.BodyFont;BackColor=Theme.Beige;ForeColor=Theme.Brown;AutoScaleMode=AutoScaleMode.Dpi;
-  var sidebar=new Panel {Dock=DockStyle.Left,Width=D(216),BackColor=Theme.Green};
+  var sidebar=new Panel {Dock=DockStyle.Left,Width=D(216),BackColor=Theme.Sidebar};
   var logo=new PictureBox {Image=BrandLogo(),SizeMode=PictureBoxSizeMode.Zoom,Bounds=new Rectangle(D(24),D(24),D(52),D(52)),AccessibleName="Logo Coração Animal"};logo.Disposed+=(_,_)=>logo.Image?.Dispose();sidebar.Controls.Add(logo);
   sidebar.Controls.Add(new Label {Text="Coração\nAnimal",Font=Theme.CardTitleFont,ForeColor=Color.White,AutoSize=true,Location=new Point(D(86),D(24))});
   sidebar.Controls.Add(new Label {Text="CUIDAR. ACOLHER. CONECTAR.",Font=new Font("Segoe UI",8),ForeColor=Theme.Soft,AutoSize=true,Location=new Point(D(24),D(98))});
@@ -28,7 +28,7 @@ public sealed class MainForm:Form
   var workspace=new Panel {Dock=DockStyle.Fill,BackColor=Theme.Beige};
   var header=new Panel {Dock=DockStyle.Top,Height=D(66),BackColor=Color.White};
   header.Controls.Add(new Label {Text="Adoção responsável transforma vidas",AutoSize=true,ForeColor=Theme.Muted,Location=new Point(D(28),D(24)),Font=Theme.SmallFont});
-  var version=new Label {Text="Windows 1.0.3",Dock=DockStyle.Right,Width=D(140),TextAlign=ContentAlignment.MiddleCenter,ForeColor=Theme.Green,Font=Theme.SmallFont};header.Controls.Add(version);
+  var version=new Label {Text="Windows 1.0.4",Dock=DockStyle.Right,Width=D(140),TextAlign=ContentAlignment.MiddleCenter,ForeColor=Theme.Green,Font=Theme.SmallFont};header.Controls.Add(version);
   body.Padding=new Padding(D(28),D(28),D(28),D(32));state.Height=D(38);state.Padding=new Padding(D(28),D(10),0,0);state.Font=Theme.SmallFont;
   workspace.Controls.Add(body);workspace.Controls.Add(state);workspace.Controls.Add(header);Controls.Add(workspace);Controls.Add(sidebar);
   body.SizeChanged+=(_,_)=>ResizeBody();body.ControlAdded+=(_,_)=>ResizeBody();
@@ -50,7 +50,7 @@ public sealed class MainForm:Form
  }
  void SelectTab(string key)
  {
-  foreach(var pair in tabs){bool selected=pair.Key==key;pair.Value.BackColor=selected?Color.White:Theme.Green;pair.Value.ForeColor=selected?Theme.Green:Color.White;pair.Value.FlatAppearance.MouseOverBackColor=selected?Theme.Soft:Color.FromArgb(31,73,57);pair.Value.AccessibleDescription=selected?"Seção atual":null;}
+  foreach(var pair in tabs){bool selected=pair.Key==key;pair.Value.BackColor=selected?Color.White:Theme.Sidebar;pair.Value.ForeColor=selected?Theme.Orange:Color.White;pair.Value.FlatAppearance.MouseOverBackColor=selected?Theme.Soft:Theme.SidebarHover;pair.Value.AccessibleDescription=selected?"Seção atual":null;}
  }
  void ResizeBody()
  {
@@ -71,7 +71,7 @@ public sealed class MainForm:Form
  void Page(string title,string subtitle="",string tab="explorar")
  {
   body.SuspendLayout();catalogGrid=null;errorCard=null;while(body.Controls.Count>0)body.Controls[0].Dispose();SelectTab(tab);
-  body.Controls.Add(new Label {Text="CORAÇÃO ANIMAL",AutoSize=true,Font=Theme.StrongFont,ForeColor=Theme.Green,Margin=new Padding(0,0,0,D(8))});
+  body.Controls.Add(new Label {Text="CORAÇÃO ANIMAL",AutoSize=true,Font=Theme.StrongFont,ForeColor=Theme.Orange,Margin=new Padding(0,0,0,D(8))});
   body.Controls.Add(new Label {Text=title,AutoSize=true,Font=Theme.TitleFont,ForeColor=Theme.Brown,Margin=new Padding(0,0,0,D(10)),AccessibleRole=AccessibleRole.StaticText});
   if(subtitle.Length>0)Note(subtitle);body.ResumeLayout();body.AutoScrollPosition=Point.Empty;
  }

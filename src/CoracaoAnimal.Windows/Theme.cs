@@ -3,13 +3,15 @@ namespace CoracaoAnimal.Windows;
 
 internal static class Theme
 {
- internal static readonly Color Green=ColorTranslator.FromHtml("#285C49");
- internal static readonly Color Brown=ColorTranslator.FromHtml("#203D34");
- internal static readonly Color Beige=ColorTranslator.FromHtml("#F4F7F2");
- internal static readonly Color Muted=ColorTranslator.FromHtml("#52685D");
- internal static readonly Color Orange=ColorTranslator.FromHtml("#A64222");
- internal static readonly Color Line=ColorTranslator.FromHtml("#D5E1D8");
- internal static readonly Color Soft=ColorTranslator.FromHtml("#E8F0E8");
+ internal static readonly Color Green=ColorTranslator.FromHtml("#4A7C59");
+ internal static readonly Color Brown=ColorTranslator.FromHtml("#2A1F14");
+ internal static readonly Color Beige=ColorTranslator.FromHtml("#F7F3EE");
+ internal static readonly Color Muted=ColorTranslator.FromHtml("#7A6355");
+ internal static readonly Color Orange=ColorTranslator.FromHtml("#B8431B");
+ internal static readonly Color Line=ColorTranslator.FromHtml("#E5D9CC");
+ internal static readonly Color Soft=ColorTranslator.FromHtml("#EFE9E1");
+ internal static readonly Color Sidebar=ColorTranslator.FromHtml("#3D2B1F");
+ internal static readonly Color SidebarHover=ColorTranslator.FromHtml("#513A2A");
  internal static readonly Font BodyFont=new("Segoe UI",10.5f);
  internal static readonly Font SmallFont=new("Segoe UI",9.5f);
  internal static readonly Font StrongFont=new("Segoe UI",10.5f,FontStyle.Bold);
@@ -18,9 +20,9 @@ internal static class Theme
  internal static void Button(Button button,bool secondary=false)
  {
   button.FlatStyle=FlatStyle.Flat;button.FlatAppearance.BorderSize=0;
-  button.BackColor=secondary?Color.White:Green;button.ForeColor=secondary?Green:Color.White;
+  button.BackColor=secondary?Color.White:Orange;button.ForeColor=secondary?Brown:Color.White;
   button.Font=StrongFont;button.Cursor=Cursors.Hand;button.MinimumSize=new Size(112,44);
-  button.FlatAppearance.MouseOverBackColor=secondary?Soft:ColorTranslator.FromHtml("#1F4939");
+  button.FlatAppearance.MouseOverBackColor=secondary?Soft:ColorTranslator.FromHtml("#9D3716");
   if(button is RoundedButton rounded)rounded.Secondary=secondary;
  }
  internal static void Field(Control control)
