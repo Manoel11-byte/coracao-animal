@@ -18,4 +18,23 @@ public class MainActivity:MauiAppCompatActivity
    controller.AppearanceLightNavigationBars=true;
   }
  }
+#if NATIVE_TEST_ANDROID
+ // Instrumentation-only key: dismiss the IME without sending Android Back.
+ // This handler is absent from distributable APKs.
+ public override bool OnKeyDown(Android.Views.Keycode keyCode,Android.Views.KeyEvent? e)
+ {
+  if(keyCode==Android.Views.Keycode.F12)
+  {
+   if(CurrentFocus is { } focus)
+   {
+    if(GetSystemService(Android.Content.Context.InputMethodService) is Android.Views.InputMethods.InputMethodManager keyboard)
+     keyboard.HideSoftInputFromWindow(focus.WindowToken,Android.Views.InputMethods.HideSoftInputFlags.None);
+    focus.ClearFocus();
+   }
+   return true;
+  }
+  return base.OnKeyDown(keyCode,e);
+ }
+#endif
+
 }

@@ -106,6 +106,11 @@ class Android:
         return ET.fromstring(self.adb('shell','cat','/sdcard/full-ui.xml'))
     def scroll(self,up=False):
         self.adb('shell','input','swipe',str(self.width//2),str(int(self.height*(.38 if up else .72))),str(self.width//2),str(int(self.height*(.72 if up else .38))),'250')
+    def visible(self,node):
+        bounds=list(map(int,re.findall(r'\d+',node.get('bounds',''))))
+        if len(bounds)!=4:return False
+        x1,y1,x2,y2=bounds
+        return x2>x1 and y2>y1 and 0<=(x1+x2)//2<self.width and 0<=(y1+y2)//2<int(self.height*.93)
     def find(self,name,edit=False,button=False):
         previous=None;up=False
         for attempt in range(36):
@@ -114,7 +119,7 @@ class Android:
                 nodes=list(tree.iter('node'))
                 signature=tuple((n.get('text'),n.get('content-desc'),n.get('bounds')) for n in nodes if n.get('package')=='br.org.coracaoanimal.app')
                 for node in nodes:
-                    if node.get('enabled')!='true':continue
+                    if node.get('enabled')!='true' or not self.visible(node):continue
                     if edit and not node.get('class','').endswith('EditText'):continue
                     if button and not node.get('clickable')=='true':continue
                     text=node.get('text','');desc=node.get('content-desc','')
@@ -128,7 +133,7 @@ class Android:
                         group=parents.get(label)
                         for _ in range(3):
                             if group is None:break
-                            inputs=[n for n in group.iter('node') if n.get('class','').endswith('EditText') and n.get('enabled')=='true']
+                            inputs=[n for n in group.iter('node') if n.get('class','').endswith('EditText') and n.get('enabled')=='true' and self.visible(n)]
                             if len(inputs)==1:return inputs[0]
                             group=parents.get(group)
                 if signature==previous:up=not up
@@ -147,9 +152,7 @@ class Android:
         node=self.find(name,edit=True);self.tap_node(node)
         self.adb('shell','input','keycombination','KEYCODE_CTRL_LEFT','KEYCODE_A')
         self.adb('shell','input','text',shlex.quote(value.replace(' ','%s')))
-        ime=self.adb('shell','dumpsys','input_method').decode(errors='replace')
-        if re.search(r'(?:mInputShown|mIsInputViewShown|isInputViewShown)=true',ime):
-            self.adb('shell','input','keyevent','KEYCODE_BACK')
+        self.adb('shell','input','keyevent','KEYCODE_F12')
     def read(self,name):return self.find(name,edit=True).get('text')
     def check(self):self.tap_node(self.find('TERMS'))
     def confirm(self):self.click('Sim')
