@@ -1,0 +1,62 @@
+name: Publish reviewed downloads
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/publish-reviewed-release.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    if: github.repository == 'Manoel11-byte/coracao-animal'
+    runs-on: ubuntu-24.04
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Retrieve the exact reviewed binaries
+        run: |
+          mkdir -p release-assets
+          gh api repos/$GH_REPO/actions/artifacts/13380721620/zip > release-assets/Coracao-Animal-Windows-1.0.5-x64.zip
+          gh api repos/$GH_REPO/actions/artifacts/13380591871/zip > android-artifact.zip
+          python - <<'PY'
+          import hashlib, zipfile
+          from pathlib import Path
+          output=Path('release-assets')
+          with zipfile.ZipFile('android-artifact.zip') as archive:
+              names=[name for name in archive.namelist() if name.endswith('Signed.apk')]
+              assert len(names)==1
+              (output/'Coracao-Animal-Android-1.0.4.apk').write_bytes(archive.read(names[0]))
+          expected={
+              'Coracao-Animal-Windows-1.0.5-x64.zip':'a393ddd20c895d091f39009e943ed0aac1066c1221455aeb61485a342f16f618',
+              'Coracao-Animal-Android-1.0.4.apk':'90a1efcab31fca0b96fdd50d27bdc637c30c60fd81e39291581b4560940b733a',
+          }
+          for name,digest in expected.items():
+              assert hashlib.sha256((output/name).read_bytes()).hexdigest()==digest, name+' differs from the reviewed file'
+          (output/'SHA256SUMS.txt').write_text(''.join(digest+'  '+name+'\n' for name,digest in expected.items()))
+          PY
+      - name: Publish versioned downloads
+        run: |
+          cat > release-notes.md <<'NOTES'
+          Windows 1.0.5 e Android 1.0.4.
+
+          - Paleta bege, marrom e laranja como o site.
+          - Windows com correção das fotos WebP, incluindo Bento e Mel.
+          - Mesma API e banco Azure; administração exclusiva do site.
+          - Binários idênticos aos arquivos revisados e entregues. Consulte SHA256SUMS.txt.
+
+          Windows: extraia o ZIP e abra CoracaoAnimal.exe.
+          Android: APK de avaliação com assinatura de desenvolvimento. Uma instalação anterior assinada com outra chave pode apresentar conflito de atualização.
+
+          As compilações, auditorias e testes já executados estão nos runs 41949711601 e 41950068804. A homologação ampliada e a documentação técnica são acompanhadas pelo PR #5; esta publicação não afirma testes em aparelhos físicos ou pentest.
+
+          Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
+          NOTES
+          if gh release view v1.0.5 >/dev/null 2>&1; then
+            gh release upload v1.0.5 release-assets/* --clobber
+            gh release edit v1.0.5 --title 'Coração Animal - Windows 1.0.5 e Android 1.0.4' --notes-file release-notes.md --latest
+          else
+            gh release create v1.0.5 release-assets/* --target "$GITHUB_SHA" --title 'Coração Animal - Windows 1.0.5 e Android 1.0.4' --notes-file release-notes.md --latest
+          fi
