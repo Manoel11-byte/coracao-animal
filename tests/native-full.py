@@ -123,7 +123,7 @@ class Android:
                     if edit and not node.get('class','').endswith('EditText'):continue
                     if button and not node.get('clickable')=='true':continue
                     text=node.get('text','');desc=node.get('content-desc','')
-                    if text==name or desc==name or (name=='TERMS' and desc.startswith('Entendo que')):return node
+                    if text==name or desc==name or (edit and text.startswith(name+', ')) or (name=='TERMS' and desc.startswith('Entendo que')):return node
                 if edit:
                     # Filled Android EditTexts expose their value instead of the
                     # placeholder. Associate the visible label with its input.
@@ -153,7 +153,9 @@ class Android:
         self.adb('shell','input','keycombination','KEYCODE_CTRL_LEFT','KEYCODE_A')
         self.adb('shell','input','text',shlex.quote(value.replace(' ','%s')))
         self.adb('shell','input','keyevent','KEYCODE_F12')
-    def read(self,name):return self.find(name,edit=True).get('text')
+    def read(self,name):
+        text=self.find(name,edit=True).get('text','')
+        return text[len(name)+2:] if text.startswith(name+', ') else text
     def check(self):self.tap_node(self.find('TERMS'))
     def confirm(self):self.click('Sim')
     def capture(self,name):

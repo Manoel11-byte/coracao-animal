@@ -222,7 +222,7 @@ Página pública: https://github.com/Manoel11-byte/coracao-animal/releases/tag/v
 
 Para validar a API: dotnet test tests/CoracaoAnimal.Tests -c Release.
 
-Para compilar Windows: pwsh scripts/build-windows.ps1. O pacote inclui runtime e bibliotecas nativas em executável autossuficiente win-x64. Para publicar site existente: pwsh scripts/publish-web.ps1 -ResourceGroup rg-coracaoanimal -AppName coracao-pkzqbhzfiqlry.
+Para compilar Windows: pwsh scripts/build-windows.ps1. O pacote inclui runtime e bibliotecas nativas em executável autossuficiente win-x64. Para reproduzir o PDF em Linux/WSL, instalar scripts/requirements-docs.txt, disponibilizar as fontes DejaVu Sans e executar python docs/build-technical-pdf.py. Para publicar site existente: pwsh scripts/publish-web.ps1 -ResourceGroup rg-coracaoanimal -AppName coracao-pkzqbhzfiqlry.
 
 Para Android de desenvolvimento: pwsh scripts/build-android.ps1. Para distribuição atualizável, usar KeyStore e alias da versão anterior e CA_SIGNING_PASSWORD no ambiente. Não gravar o certificado privado no Git. O APK do CI usa assinatura de desenvolvimento; a continuidade de assinatura não é garantida entre runners. O Windows não possui assinatura Authenticode configurada.
 
@@ -241,7 +241,7 @@ Após publicar: conferir /health/ready, catálogo, fotos, login e autorização;
 | Dependências | Auditoria NuGet com transitivas | Falhas conhecidas ou relatório incompleto fazem CI falhar |
 | Azure | Consultas públicas e testes controlados | Saúde, catálogo, fotos e integração de sessões conforme evidências |
 
-As compilações nativas de homologação usam NativeTestPlatform=WINDOWS ou ANDROID. Isso define, em tempo de compilação, endereços loopback 127.0.0.1 ou 10.0.2.2. Sem a propriedade, ProductionUrl permanece no Azure. Os jobs isolados não publicam APKs ou executáveis de teste como pacotes de distribuição.
+As compilações nativas de homologação usam NativeTestPlatform=WINDOWS ou ANDROID. Isso define, em tempo de compilação, endereços loopback 127.0.0.1 ou 10.0.2.2. Sem a propriedade, ProductionUrl permanece no Azure. Os jobs isolados não publicam APKs ou executáveis de teste como pacotes de distribuição. No APK de teste, a tecla F12 apenas fecha o teclado e retira foco do campo para instrumentação; esse tratamento é excluído da compilação distribuída.
 
 Cada job nativo cria SQLite descartável. Uma sessão web independente lê o perfil, adoção, doação e voluntariado gravados pela UI. Em sentido inverso, a sessão altera o perfil e o aplicativo o consulta novamente. Essa observação usa o protocolo de sessão web; a interface web é exercitada separadamente pelo Playwright.
 
@@ -263,7 +263,7 @@ Evidência principal de site/API/Windows: execução CI 41952937521, commit de t
 
 Os testes de interface nativa usam ambientes isolados por plataforma. Isso não equivale a operar simultaneamente um aparelho físico Android, um computador de usuário e o navegador contra a mesma instância Azure. A matriz final deve distinguir interface real, protocolo e produção.
 
-Não foram demonstrados teste de carga, pentest, restauração de backup, recuperação de desastre, publicação nas lojas, aparelhos físicos, TalkBack ou leitor de tela Windows. Também não há certificação formal de acessibilidade, disponibilidade ou conformidade com a LGPD.
+Não foram demonstrados teste de carga, pentest, restauração de backup, recuperação de desastre, publicação nas lojas, aparelhos físicos, TalkBack ou leitor de tela Windows. Falha de conexão e recuperação foram exercitadas; redes físicas lentas e respostas de imagem parcialmente interrompidas não receberam ensaio específico. Também não há certificação formal de acessibilidade, disponibilidade ou conformidade com a LGPD.
 
 Antes de operação com dados reais: definir responsável pelo tratamento, base legal, retenção/exclusão de dados e atendimento ao titular; revisar permissões do Key Vault e firewall; estabelecer chaves de assinatura e continuidade de atualização; validar restauração de backup; monitorar expiração de sessões e limpeza de fotos órfãs; testar acessibilidade com pessoas usuárias.
 

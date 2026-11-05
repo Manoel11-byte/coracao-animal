@@ -72,7 +72,14 @@ jobs:
           Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
           NOTES
           if gh release view v1.0.5 >/dev/null 2>&1; then
-            gh release upload v1.0.5 release-assets/* --clobber
+            for file in release-assets/*; do
+              name=$(basename "$file")
+              expected="sha256:$(sha256sum "$file" | cut -d' ' -f1)"
+              current=$(gh api repos/$GH_REPO/releases/tags/v1.0.5 --jq ".assets[] | select(.name==\"$name\") | .digest")
+              if [ "$current" != "$expected" ]; then
+                gh release upload v1.0.5 "$file" --clobber
+              fi
+            done
             gh release edit v1.0.5 --title 'Coração Animal - Windows 1.0.5 e Android 1.0.4' --notes-file release-notes.md --latest
           else
             gh release create v1.0.5 release-assets/* --target "$GITHUB_SHA" --title 'Coração Animal - Windows 1.0.5 e Android 1.0.4' --notes-file release-notes.md --latest

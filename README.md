@@ -25,7 +25,7 @@ A página inicial mantém o layout e os materiais do projeto original de https:/
 
 Solução integrada baseada no projeto Coração Animal fornecido pelo usuário. Site ASP.NET Core, aplicativo Android .NET MAUI e aplicativo Windows WinForms usam a mesma API e o mesmo banco. **Administração exclusivamente pelo site.**
 
-## Revisão 1.0.2
+## Histórico: revisão 1.0.2
 
 - Cards com fotos de altura uniforme e informações visíveis.
 - Gráficos SVG responsivos de adoções e doações, escalas separadas, tabela acessível e indicação de ausência de registros.
