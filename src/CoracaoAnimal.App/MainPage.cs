@@ -5,11 +5,11 @@ namespace CoracaoAnimal.App;
 
 public sealed class MainPage : ContentPage
 {
- static readonly Color Ink=Color.FromArgb("#203D34"), Green=Color.FromArgb("#285C49"), Muted=Color.FromArgb("#52685D"), Line=Color.FromArgb("#D5E1D8"), Canvas=Color.FromArgb("#F4F7F2");
+ static readonly Color Ink=Color.FromArgb("#2A1F14"), Green=Color.FromArgb("#4A7C59"), Muted=Color.FromArgb("#7A6355"), Line=Color.FromArgb("#E5D9CC"), Canvas=Color.FromArgb("#F7F3EE"), Orange=Color.FromArgb("#B8431B"), Brand=Color.FromArgb("#3D2B1F");
  readonly ApiClient api=new(new Storage());
  readonly VerticalStackLayout body=new(){Spacing=16,Padding=new Thickness(20,24,20,32),MaximumWidthRequest=720,HorizontalOptions=LayoutOptions.Fill};
  readonly Label state=new(){FontSize=12,TextColor=Muted,VerticalOptions=LayoutOptions.Center};
- readonly ActivityIndicator activity=new(){Color=Green,WidthRequest=20,HeightRequest=20,IsVisible=false};
+ readonly ActivityIndicator activity=new(){Color=Orange,WidthRequest=20,HeightRequest=20,IsVisible=false};
  readonly Grid navigation=new(){ColumnSpacing=4,Padding=new Thickness(8,10),BackgroundColor=Colors.White};
  readonly Dictionary<string,Button> tabs=new();
  readonly ScrollView scroll;
@@ -17,11 +17,11 @@ public sealed class MainPage : ContentPage
  public MainPage()
  {
   Title="Coração Animal";BackgroundColor=Canvas;
-  var brand=new Grid {Padding=new Thickness(20,14),ColumnSpacing=12,BackgroundColor=Green,ColumnDefinitions={new ColumnDefinition(48),new ColumnDefinition(GridLength.Star)}};
+  var brand=new Grid {Padding=new Thickness(20,14),ColumnSpacing=12,BackgroundColor=Brand,ColumnDefinitions={new ColumnDefinition(48),new ColumnDefinition(GridLength.Star)}};
   brand.Add(new Image {Source="brand_logo.png",HeightRequest=46,WidthRequest=46,Aspect=Aspect.AspectFit},0,0);
   var names=new VerticalStackLayout {Spacing=2,VerticalOptions=LayoutOptions.Center};
   names.Add(new Label {Text="Coração Animal",TextColor=Colors.White,FontAttributes=FontAttributes.Bold,FontSize=21});
-  names.Add(new Label {Text="Um encontro. Uma nova história.",TextColor=Color.FromArgb("#D7E9DD"),FontSize=12});brand.Add(names,1,0);
+  names.Add(new Label {Text="Um encontro. Uma nova história.",TextColor=Color.FromArgb("#EFE9E1"),FontSize=12});brand.Add(names,1,0);
   var links=new (string Key,string Title,Func<Task> Open)[]{("explorar","Explorar",()=>Catalog()),("adocoes","Adoções",Adoptions),("ajudar","Ajudar",Help),("conta","Conta",Profile)};
   for(int i=0;i<links.Length;i++)
   {
@@ -37,7 +37,7 @@ public sealed class MainPage : ContentPage
  protected override async void OnAppearing(){base.OnAppearing();if(loaded)return;loaded=true;await Run(async()=>{await api.Initialize();await Catalog();});}
  Button Button(string text,Func<Task> work,bool secondary=false)
  {
-  var button=new Button {Text=text,BackgroundColor=secondary?Colors.White:Green,TextColor=secondary?Green:Colors.White,BorderColor=Line,BorderWidth=secondary?1:0,CornerRadius=16,MinimumHeightRequest=50,FontSize=15,FontAttributes=FontAttributes.Bold,Padding=new Thickness(16,12)};
+  var button=new Button {Text=text,BackgroundColor=secondary?Colors.White:Orange,TextColor=secondary?Ink:Colors.White,BorderColor=Line,BorderWidth=secondary?1:0,CornerRadius=16,MinimumHeightRequest=50,FontSize=15,FontAttributes=FontAttributes.Bold,Padding=new Thickness(16,12)};
   button.Clicked+=async(_,_)=>await Run(work);return button;
  }
  async Task Run(Func<Task> work)
@@ -50,7 +50,7 @@ public sealed class MainPage : ContentPage
  }
  void SelectTab(string key)
  {
-  foreach(var pair in tabs){var selected=pair.Key==key;pair.Value.BackgroundColor=selected?Green:Colors.White;pair.Value.TextColor=selected?Colors.White:Muted;SemanticProperties.SetDescription(pair.Value,pair.Value.Text+(selected?", seção atual":""));}
+  foreach(var pair in tabs){var selected=pair.Key==key;pair.Value.BackgroundColor=selected?Orange:Colors.White;pair.Value.TextColor=selected?Colors.White:Muted;SemanticProperties.SetDescription(pair.Value,pair.Value.Text+(selected?", seção atual":""));}
  }
  void Page(string title,string subtitle="",string tab="explorar")
  {
@@ -75,7 +75,7 @@ public sealed class MainPage : ContentPage
  }
  CheckBox Check(string label)
  {
-  var check=new CheckBox {Color=Green,MinimumHeightRequest=48,MinimumWidthRequest=48};SemanticProperties.SetDescription(check,label);
+  var check=new CheckBox {Color=Orange,MinimumHeightRequest=48,MinimumWidthRequest=48};SemanticProperties.SetDescription(check,label);
   var row=new Grid {ColumnDefinitions={new ColumnDefinition(48),new ColumnDefinition(GridLength.Star)},ColumnSpacing=8};row.Add(check,0,0);row.Add(new Label {Text=label,VerticalOptions=LayoutOptions.Center,TextColor=Ink,FontSize=14},1,0);body.Add(row);return check;
  }
  static string Value(Picker picker)=>(picker.SelectedItem as Option)?.Key??"";
