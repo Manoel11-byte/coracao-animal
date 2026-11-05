@@ -69,6 +69,8 @@ jobs:
 
           As compilações, auditorias e testes já executados estão nos runs 41949711601 e 41950068804. A homologação ampliada e a documentação técnica estão registradas no PR #5 e no PDF incluído. Consulte a matriz de resultados e os limites de validação; não há afirmação de testes em aparelhos físicos ou pentest.
 
+          Validação ampliada: os cinco jobs do CI 42128053232 passaram, incluindo 40 testes .NET, fluxos web/administrativos e formulários completos nas interfaces Windows e Android em emulador.
+
           Site: https://coracao-pkzqbhzfiqlry.azurewebsites.net/
           NOTES
           if gh release view v1.0.5 >/dev/null 2>&1; then

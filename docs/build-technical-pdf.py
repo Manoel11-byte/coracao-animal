@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,html,sys
 from reportlab.pdfgen import canvas
-from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,KeepTogether,Image
+from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,KeepTogether,Image,CondPageBreak
 from reportlab.lib.styles import getSampleStyleSheet,ParagraphStyle
 from reportlab.lib.colors import HexColor,white
 from reportlab.lib.enums import TA_LEFT
@@ -75,8 +75,8 @@ while i<len(lines):
   while i<len(lines) and not lines[i].startswith('```'):i+=1
   if lang=='mermaid':story.append(architecture())
   i+=1;continue
- if l.startswith('## '):flush();story.append(Paragraph(markup(l[3:]),styles['h1']));i+=1;continue
- if l.startswith('### '):flush();story.append(Paragraph(markup(l[4:]),styles['h2']));i+=1;continue
+ if l.startswith('## '):flush();story.append(CondPageBreak(100));story.append(Paragraph(markup(l[3:]),styles['h1']));i+=1;continue
+ if l.startswith('### '):flush();story.append(CondPageBreak(85));story.append(Paragraph(markup(l[4:]),styles['h2']));i+=1;continue
  if l.startswith('|'):
   flush();rows=[]
   while i<len(lines) and lines[i].startswith('|'):

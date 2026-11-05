@@ -25,6 +25,14 @@ A página inicial mantém o layout e os materiais do projeto original de https:/
 
 Solução integrada baseada no projeto Coração Animal fornecido pelo usuário. Site ASP.NET Core, aplicativo Android .NET MAUI e aplicativo Windows WinForms usam a mesma API e o mesmo banco. **Administração exclusivamente pelo site.**
 
+## Homologação ampliada
+
+- 40 testes .NET aprovados, incluindo compartilhamento entre duas sessões nativas independentes e uma sessão web.
+- Site: fluxos autenticados, seis módulos administrativos, cancelamentos, troca de senha, edição/foto/arquivamento e recuperação de conexão.
+- Windows e Android: nove grupos de cenários autenticados na interface real, com banco descartável. Android executado em emulador API 35.
+- Azure: três sessões HTTP independentes confirmaram perfil e registros compartilhados, cancelamento e revogação de sessões.
+- Evidência: [CI 42128053232](https://github.com/Manoel11-byte/coracao-animal/actions/runs/42128053232). Veja a documentação técnica para escopo, reproduções e limites. Testes físicos, pentest e restauração de backup permanecem fora desta validação.
+
 ## Histórico: revisão 1.0.2
 
 - Cards com fotos de altura uniforme e informações visíveis.
