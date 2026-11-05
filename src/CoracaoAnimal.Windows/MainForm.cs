@@ -14,7 +14,7 @@ public sealed class MainForm:Form
  static Image? BrandLogo(){var a=typeof(MainForm).Assembly;var resource=a.GetManifestResourceNames().FirstOrDefault(n=>n.EndsWith("Assets.logo.png",StringComparison.OrdinalIgnoreCase));if(resource==null)return null;using var stream=a.GetManifestResourceStream(resource);if(stream==null)return null;using var image=Image.FromStream(stream);return new Bitmap(image);}
  public MainForm()
  {
-  Text="Coração Animal • Windows 1.0.4";Width=1180;Height=840;MinimumSize=new Size(900,650);StartPosition=FormStartPosition.CenterScreen;
+  Text="Coração Animal • Windows 1.0.5";Width=1180;Height=840;MinimumSize=new Size(900,650);StartPosition=FormStartPosition.CenterScreen;
   Font=Theme.BodyFont;BackColor=Theme.Beige;ForeColor=Theme.Brown;AutoScaleMode=AutoScaleMode.Dpi;
   var sidebar=new Panel {Dock=DockStyle.Left,Width=D(216),BackColor=Theme.Sidebar};
   var logo=new PictureBox {Image=BrandLogo(),SizeMode=PictureBoxSizeMode.Zoom,Bounds=new Rectangle(D(24),D(24),D(52),D(52)),AccessibleName="Logo Coração Animal"};logo.Disposed+=(_,_)=>logo.Image?.Dispose();sidebar.Controls.Add(logo);
@@ -28,7 +28,7 @@ public sealed class MainForm:Form
   var workspace=new Panel {Dock=DockStyle.Fill,BackColor=Theme.Beige};
   var header=new Panel {Dock=DockStyle.Top,Height=D(66),BackColor=Color.White};
   header.Controls.Add(new Label {Text="Adoção responsável transforma vidas",AutoSize=true,ForeColor=Theme.Muted,Location=new Point(D(28),D(24)),Font=Theme.SmallFont});
-  var version=new Label {Text="Windows 1.0.4",Dock=DockStyle.Right,Width=D(140),TextAlign=ContentAlignment.MiddleCenter,ForeColor=Theme.Green,Font=Theme.SmallFont};header.Controls.Add(version);
+  var version=new Label {Text="Windows 1.0.5",Dock=DockStyle.Right,Width=D(140),TextAlign=ContentAlignment.MiddleCenter,ForeColor=Theme.Green,Font=Theme.SmallFont};header.Controls.Add(version);
   body.Padding=new Padding(D(28),D(28),D(28),D(32));state.Height=D(38);state.Padding=new Padding(D(28),D(10),0,0);state.Font=Theme.SmallFont;
   workspace.Controls.Add(body);workspace.Controls.Add(state);workspace.Controls.Add(header);Controls.Add(workspace);Controls.Add(sidebar);
   body.SizeChanged+=(_,_)=>ResizeBody();body.ControlAdded+=(_,_)=>ResizeBody();
@@ -103,8 +103,8 @@ public sealed class MainForm:Form
  CheckBox Check(string label){var check=new CheckBox {Text=label,AccessibleName=label,AutoSize=true,ForeColor=Theme.Brown,Font=Theme.BodyFont,Margin=new Padding(0,D(4),0,D(18))};body.Controls.Add(check);return check;}
  PictureBox Picture(AnimalDto animal,int height)
  {
-  var picture=new PictureBox {Height=height,SizeMode=PictureBoxSizeMode.Zoom,AccessibleName="Foto de "+animal.Nome,ErrorImage=null,InitialImage=null,BackColor=Theme.Soft};
-  picture.Disposed+=(_,_)=>{picture.CancelAsync();picture.Image?.Dispose();};picture.LoadAsync(new Uri(api.BaseUri!,animal.FotoUrl!).AbsoluteUri);return picture;
+  var picture=new AnimalPicture(animal.Nome) {Height=height};
+  _=picture.LoadPhoto(new Uri(api.BaseUri!,animal.FotoUrl!));return picture;
  }
  void Photo(AnimalDto animal,int height){var picture=Picture(animal,D(height));picture.Width=D(680);picture.Margin=new Padding(0,0,0,D(18));body.Controls.Add(picture);}
  void Action(string text,Func<Task> work,bool secondary=false)=>body.Controls.Add(Button(text,work,secondary));
