@@ -1,1 +1,1 @@
-<Project><PropertyGroup><Version>1.0.2</Version><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><LangVersion>latest</LangVersion></PropertyGroup></Project>
+<Project><PropertyGroup><Version>1.0.2</Version><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings><LangVersion>latest</LangVersion></PropertyGroup><PropertyGroup Condition="'$(NativeTestPlatform)' == 'WINDOWS' Or '$(NativeTestPlatform)' == 'ANDROID'"><DefineConstants>$(DefineConstants);NATIVE_TEST_$(NativeTestPlatform)</DefineConstants></PropertyGroup></Project>

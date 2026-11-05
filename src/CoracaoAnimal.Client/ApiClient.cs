@@ -6,7 +6,13 @@ using CoracaoAnimal.Core;
 namespace CoracaoAnimal.Client;
 public interface IClientStorage { Task<string?> Read(string key); Task Write(string key,string? value); }
 public sealed class ApiClient(IClientStorage storage,HttpClient? transport=null) {
+#if NATIVE_TEST_ANDROID
+ public const string ProductionUrl="http://10.0.2.2:5098/";
+#elif NATIVE_TEST_WINDOWS
+ public const string ProductionUrl="http://127.0.0.1:5098/";
+#else
  public const string ProductionUrl="https://coracao-pkzqbhzfiqlry.azurewebsites.net/";
+#endif
  readonly HttpClient http=transport??new(new HttpClientHandler { AllowAutoRedirect=false }) { Timeout=TimeSpan.FromSeconds(60) };
  static readonly JsonSerializerOptions Json=new(JsonSerializerDefaults.Web);
  public Uri? BaseUri {get;private set;} public UsuarioDto? Usuario {get;private set;} string? token;
