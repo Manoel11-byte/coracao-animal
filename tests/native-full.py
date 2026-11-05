@@ -147,7 +147,9 @@ class Android:
         node=self.find(name,edit=True);self.tap_node(node)
         self.adb('shell','input','keycombination','KEYCODE_CTRL_LEFT','KEYCODE_A')
         self.adb('shell','input','text',shlex.quote(value.replace(' ','%s')))
-        self.adb('shell','input','keyevent','KEYCODE_BACK')
+        ime=self.adb('shell','dumpsys','input_method').decode(errors='replace')
+        if re.search(r'(?:mInputShown|mIsInputViewShown|isInputViewShown)=true',ime):
+            self.adb('shell','input','keyevent','KEYCODE_BACK')
     def read(self,name):return self.find(name,edit=True).get('text')
     def check(self):self.tap_node(self.find('TERMS'))
     def confirm(self):self.click('Sim')
