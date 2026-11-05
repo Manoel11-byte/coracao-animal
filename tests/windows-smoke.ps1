@@ -48,6 +48,8 @@ function Save-Window([string] $name) {
 }
 try {
  [void](Wait-Control 'Buscar animais')
+ [void](Wait-Control 'Foto de Amora — carregada')
+ [void](Wait-Control 'Foto de Bento — carregada')
  Save-Window 'catalogo'
  [void][NativeWindow]::SetWindowPos($process.MainWindowHandle,[IntPtr]::Zero,0,0,900,650,4)
  Save-Window 'catalogo-900'
