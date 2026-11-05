@@ -45,18 +45,19 @@ jobs:
           dotnet-version: 10.0.x
       - shell: pwsh
         run: ./scripts/build-windows.ps1
-      - name: Verify Windows startup
+      - name: Audit Windows dependencies
         shell: pwsh
         run: |
-          $process = Start-Process ./artifacts/windows/CoracaoAnimal.exe -PassThru
-          try {
-            Start-Sleep -Seconds 10
-            $process.Refresh()
-            if ($process.HasExited) { throw "O executável encerrou na inicialização: $($process.ExitCode)" }
-            Write-Output "PASS: executável Windows permaneceu aberto após a inicialização."
-          } finally {
-            if (-not $process.HasExited) { Stop-Process -Id $process.Id }
-          }
+          dotnet list src/CoracaoAnimal.Windows package --no-restore --vulnerable --include-transitive --format json > windows-dependency-audit.json
+          python tests/check-dependency-audit.py windows-dependency-audit.json
+      - name: Verify Windows navigation
+        shell: powershell
+        run: ./tests/windows-smoke.ps1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: windows-review
+          path: artifacts/windows-review
       - uses: actions/upload-artifact@v4
         with:
           name: windows-x64

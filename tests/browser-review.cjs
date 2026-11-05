@@ -8,6 +8,15 @@ const log=fs.openSync('artifacts/review/server.log','w');
 const server=spawn(process.env.DOTNET_EXECUTABLE||'dotnet',[root+'/src/CoracaoAnimal.Api/bin/Release/net10.0/CoracaoAnimal.Api.dll'],{cwd:root+'/src/CoracaoAnimal.Api',env:{...process.env,ASPNETCORE_ENVIRONMENT:'Development',Urls:base,ConnectionStrings__CoracaoAnimal:'Data Source='+root+'/artifacts/review/'+Date.now()+'.db',Database__SeedDemo:'true',Bootstrap__Email:'admin@example.test',Bootstrap__Password:'Browser-Test-987654'},stdio:['ignore',log,log]});
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 let browser;
+async function checkTextContrast(page, selector) {
+ const colors=await page.locator(selector).evaluateAll(elements=>elements.map(el=>{
+  let parent=el,background;
+  while(parent){const value=getComputedStyle(parent).backgroundColor;if(value!=='rgba(0, 0, 0, 0)'&&value!=='transparent'){background=value;break;}parent=parent.parentElement;}
+  return {text:el.textContent.trim().slice(0,50)||el.getAttribute('name'),color:getComputedStyle(el).color,background:background||'rgb(255, 255, 255)'};
+ }));
+ const luminance=color=>{const values=color.match(/[\d.]+/g).slice(0,3).map(Number).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4;});return values[0]*.2126+values[1]*.7152+values[2]*.0722;};
+ for(const item of colors){const a=luminance(item.color),b=luminance(item.background),ratio=(Math.max(a,b)+.05)/(Math.min(a,b)+.05);assert(ratio>=4.5,`${item.text}: contrast ${ratio.toFixed(2)} (${item.color} / ${item.background})`);}
+}
 (async()=>{
  for(let i=0;;i++){try{if((await fetch(base+'/health/ready')).ok)break;}catch{}if(i>=100)throw Error('Local test server did not start');await sleep(300);}
  browser=await chromium.launch({headless:true});
@@ -40,6 +49,20 @@ let browser;
  }
  await page.unroute('**/api/resumo');
  await page.setViewportSize({width:1440,height:1000});
+ for(const width of [1440,390,320]){
+  await page.setViewportSize({width,height:1000});
+  for(const dark of [false,true]){
+   await page.goto(base+'/portal.html#entrar');await page.locator('#login').waitFor();
+   if(await page.locator('body').evaluate(el=>el.classList.contains('dark'))!==dark)await page.getByRole('button',{name:'Alternar tema',exact:true}).click();
+   await checkTextContrast(page,'.form-card h1,.form-card .eyebrow,.form-card p,.form-card label,.form-card input,.form-card .btn,.form-card .link');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'Login overflow at '+width);
+   await page.locator('.form-card').screenshot({path:`artifacts/review/login-${dark?'dark':'light'}-${width}.png`});
+   await page.reload();await page.locator('#login').waitFor();assert.equal(await page.locator('body').evaluate(el=>el.classList.contains('dark')),dark,'Theme must persist after reload');
+   await page.goto(base+'/portal.html#cadastro');await page.locator('#register').waitFor();await checkTextContrast(page,'.form-card h1,.form-card label,.form-card input,.form-card .btn,.form-card .link');
+  }
+ }
+ await page.setViewportSize({width:1440,height:1000});
+ if(await page.locator('body').evaluate(el=>el.classList.contains('dark')))await page.getByRole('button',{name:'Alternar tema',exact:true}).click();
  await page.goto(base+'/portal.html#entrar');await page.locator('main [name=email]').fill('admin@example.test');await page.locator('main [name=senha]').fill('Browser-Test-987654');await page.locator('#login button').click();
  await page.getByRole('link',{name:'Administração',exact:true}).waitFor();
  await page.goto(base+'/portal.html#admin/animais');await page.getByRole('button',{name:'Cadastrar animal',exact:true}).click();
