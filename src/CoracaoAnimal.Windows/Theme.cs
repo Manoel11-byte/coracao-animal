@@ -1,31 +1,62 @@
+using System.Drawing.Drawing2D;
 namespace CoracaoAnimal.Windows;
 
 internal static class Theme
 {
-    internal static readonly Color Orange = ColorTranslator.FromHtml("#E05C2A");
-    internal static readonly Color Green = ColorTranslator.FromHtml("#4A7C59");
-    internal static readonly Color Brown = ColorTranslator.FromHtml("#3D2B1F");
-    internal static readonly Color Beige = ColorTranslator.FromHtml("#F7F3EE");
-    internal static readonly Color Muted = ColorTranslator.FromHtml("#7A6355");
-
-    internal static void Button(Button button, bool navigation = false)
-    {
-        button.FlatStyle = FlatStyle.Flat;
-        button.FlatAppearance.BorderSize = 0;
-        button.BackColor = navigation ? Brown : Orange;
-        button.ForeColor = Color.White;
-        button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-        button.Cursor = Cursors.Hand;
-        button.MinimumSize = new Size(112, 42);
-        button.FlatAppearance.MouseOverBackColor = Green;
-    }
-
-    internal static void Field(Control control)
-    {
-        control.Font = new Font("Segoe UI", 11);
-        control.BackColor = Color.White;
-        control.ForeColor = Brown;
-        control.Margin = new Padding(0, 4, 0, 12);
-        control.MinimumSize = new Size(control.MinimumSize.Width, 38);
-    }
+ internal static readonly Color Green=ColorTranslator.FromHtml("#285C49");
+ internal static readonly Color Brown=ColorTranslator.FromHtml("#203D34");
+ internal static readonly Color Beige=ColorTranslator.FromHtml("#F4F7F2");
+ internal static readonly Color Muted=ColorTranslator.FromHtml("#52685D");
+ internal static readonly Color Orange=ColorTranslator.FromHtml("#A64222");
+ internal static readonly Color Line=ColorTranslator.FromHtml("#D5E1D8");
+ internal static readonly Color Soft=ColorTranslator.FromHtml("#E8F0E8");
+ internal static readonly Font BodyFont=new("Segoe UI",10.5f);
+ internal static readonly Font SmallFont=new("Segoe UI",9.5f);
+ internal static readonly Font StrongFont=new("Segoe UI",10.5f,FontStyle.Bold);
+ internal static readonly Font TitleFont=new("Segoe UI",27,FontStyle.Bold);
+ internal static readonly Font CardTitleFont=new("Segoe UI",17,FontStyle.Bold);
+ internal static void Button(Button button,bool secondary=false)
+ {
+  button.FlatStyle=FlatStyle.Flat;button.FlatAppearance.BorderSize=0;
+  button.BackColor=secondary?Color.White:Green;button.ForeColor=secondary?Green:Color.White;
+  button.Font=StrongFont;button.Cursor=Cursors.Hand;button.MinimumSize=new Size(112,44);
+  button.FlatAppearance.MouseOverBackColor=secondary?Soft:ColorTranslator.FromHtml("#1F4939");
+  if(button is RoundedButton rounded)rounded.Secondary=secondary;
+ }
+ internal static void Field(Control control)
+ {
+  control.Font=BodyFont;control.BackColor=Color.White;control.ForeColor=Brown;
+ }
+ internal static GraphicsPath Round(Rectangle bounds,int radius)
+ {
+  var path=new GraphicsPath();int d=Math.Min(radius*2,Math.Min(bounds.Width,bounds.Height));
+  if(d<2){path.AddRectangle(bounds);return path;}
+  path.AddArc(bounds.Left,bounds.Top,d,d,180,90);path.AddArc(bounds.Right-d,bounds.Top,d,d,270,90);
+  path.AddArc(bounds.Right-d,bounds.Bottom-d,d,d,0,90);path.AddArc(bounds.Left,bounds.Bottom-d,d,d,90,90);path.CloseFigure();return path;
+ }
+}
+internal sealed class RoundedButton:Button
+{
+ internal bool Secondary;
+ protected override void OnResize(EventArgs e)
+ {
+  base.OnResize(e);if(Width<2||Height<2)return;
+  using var path=Theme.Round(new Rectangle(0,0,Width,Height),(int)(12*DeviceDpi/96f));
+  var previous=Region;Region=new Region(path);previous?.Dispose();
+ }
+ protected override void OnPaint(PaintEventArgs e)
+ {
+  base.OnPaint(e);e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
+  if(Secondary){using var path=Theme.Round(new Rectangle(0,0,Width-1,Height-1),(int)(12*DeviceDpi/96f));using var pen=new Pen(Theme.Line);e.Graphics.DrawPath(pen,path);}
+ }
+}
+internal sealed class SurfaceCard:Panel
+{
+ internal SurfaceCard(){DoubleBuffered=true;ResizeRedraw=true;BackColor=Theme.Beige;}
+ protected override void OnPaint(PaintEventArgs e)
+ {
+  base.OnPaint(e);e.Graphics.SmoothingMode=SmoothingMode.AntiAlias;
+  using var path=Theme.Round(new Rectangle(0,0,Width-1,Height-1),(int)(18*DeviceDpi/96f));
+  using var fill=new SolidBrush(Color.White);using var pen=new Pen(Theme.Line);e.Graphics.FillPath(fill,path);e.Graphics.DrawPath(pen,path);
+ }
 }
