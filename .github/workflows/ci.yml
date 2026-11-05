@@ -105,3 +105,66 @@ jobs:
         with:
           name: android-release
           path: src/CoracaoAnimal.App/bin/Release/net10.0-android/*Signed.apk
+  full-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - run: dotnet build src/CoracaoAnimal.Api -c Release
+      - name: Build isolated test executable
+        run: dotnet publish src/CoracaoAnimal.Windows -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:NativeTestPlatform=WINDOWS -o artifacts/native-test/windows
+      - name: Exercise authenticated Windows flows
+        run: python tests/native-full.py windows
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-windows-review
+          path: |
+            artifacts/full-windows/*.png
+            artifacts/full-windows/*.json
+            artifacts/full-windows/*.txt
+            artifacts/full-windows/*.log
+  full-android:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+      - uses: actions/setup-java@v4
+        with:
+          distribution: microsoft
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
+      - run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - run: dotnet workload install maui-android
+      - run: dotnet build src/CoracaoAnimal.Api -c Release
+      - name: Build isolated test APK
+        run: dotnet build src/CoracaoAnimal.App -c Release -t:SignAndroidPackage -p:NativeTestPlatform=ANDROID
+      - name: Enable emulator acceleration
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Exercise authenticated Android flows
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: python tests/native-full.py android
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: full-android-review
+          path: |
+            artifacts/full-android/*.png
+            artifacts/full-android/*.json
+            artifacts/full-android/*.xml
+            artifacts/full-android/*.txt
+            artifacts/full-android/*.log

@@ -13,6 +13,10 @@ Os apps conectam automaticamente ao endereço acima.
 - [Windows 1.0.5 x64 - ZIP com o executável](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Windows-1.0.5-x64.zip)
 - [Android 1.0.4 - APK](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Android-1.0.4.apk)
 
+- [Documentação técnica em PDF](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Documentacao-Tecnica-Coracao-Animal.pdf)
+- [Projeto completo com fontes e documentação](https://github.com/Manoel11-byte/coracao-animal/releases/latest/download/Coracao-Animal-Projeto-Completo-1.0.5.zip)
+- [Documentação técnica no repositório](docs/DOCUMENTACAO-TECNICA.md)
+
 O Windows 1.0.5 corrige fotos WebP. Os dois apps usam a paleta bege, marrom e laranja do site. Os arquivos publicados são os mesmos binários revisados e entregues, com hashes em SHA256SUMS.txt. O APK utiliza assinatura de desenvolvimento; a atualização de uma instalação com outra assinatura exige tratar o conflito antes de remover a instalação anterior. Os dados da conta ficam no servidor.
 
 Luna, Nino, Mel, Thor, Amora e Bento são animais fictícios, com fotografias de demonstração. Cadastre uma conta e complete seu perfil para testar adoções. Doações registram intenções, sem cobrança automática. A área administrativa fica somente no site.
@@ -21,7 +25,15 @@ A página inicial mantém o layout e os materiais do projeto original de https:/
 
 Solução integrada baseada no projeto Coração Animal fornecido pelo usuário. Site ASP.NET Core, aplicativo Android .NET MAUI e aplicativo Windows WinForms usam a mesma API e o mesmo banco. **Administração exclusivamente pelo site.**
 
-## Revisão 1.0.2
+## Homologação ampliada
+
+- 40 testes .NET aprovados, incluindo compartilhamento entre duas sessões nativas independentes e uma sessão web.
+- Site: fluxos autenticados, seis módulos administrativos, cancelamentos, troca de senha, edição/foto/arquivamento e recuperação de conexão.
+- Windows e Android: nove grupos de cenários autenticados na interface real, com banco descartável. Android executado em emulador API 35.
+- Azure: três sessões HTTP independentes confirmaram perfil e registros compartilhados, cancelamento e revogação de sessões.
+- Evidência: [CI 42128053232](https://github.com/Manoel11-byte/coracao-animal/actions/runs/42128053232). Veja a documentação técnica para escopo, reproduções e limites. Testes físicos, pentest e restauração de backup permanecem fora desta validação.
+
+## Histórico: revisão 1.0.2
 
 - Cards com fotos de altura uniforme e informações visíveis.
 - Gráficos SVG responsivos de adoções e doações, escalas separadas, tabela acessível e indicação de ausência de registros.
