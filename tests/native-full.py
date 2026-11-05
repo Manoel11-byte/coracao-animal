@@ -107,16 +107,21 @@ class Android:
     def scroll(self,up=False):
         self.adb('shell','input','swipe',str(self.width//2),str(int(self.height*(.38 if up else .72))),str(self.width//2),str(int(self.height*(.72 if up else .38))),'250')
     def find(self,name,edit=False,button=False):
-        for attempt in range(16):
+        previous=None;up=False
+        for attempt in range(36):
             try:
                 tree=self.tree()
                 nodes=list(tree.iter('node'))
+                signature=tuple((n.get('text'),n.get('content-desc'),n.get('bounds')) for n in nodes if n.get('package')=='br.org.coracaoanimal.app')
                 for node in nodes:
+                    if node.get('enabled')!='true':continue
                     if edit and not node.get('class','').endswith('EditText'):continue
                     if button and not node.get('clickable')=='true':continue
                     text=node.get('text','');desc=node.get('content-desc','')
                     if text==name or desc==name or (name=='TERMS' and desc.startswith('Entendo que')):return node
-                if attempt>1:self.scroll(up=attempt in (8,9,10,11,12))
+                if signature==previous:up=not up
+                previous=signature
+                if attempt>1:self.scroll(up=up)
             except (subprocess.CalledProcessError,ET.ParseError):pass
             time.sleep(.2)
         self.capture('missing-control')
@@ -153,7 +158,7 @@ try:
     data,headers=call('/api/auth/login','POST',{'email':email,'senha':password,'cliente':'web'})
     web_cookie=headers.get('Set-Cookie').split(';',1)[0]
     assert data['token'] is None
-    ui.fill('CPF','52998224725');ui.fill('Telefone','11999999999');ui.fill('Endereço','Rua QA 123');ui.fill('Nome completo','QA '+platform)
+    ui.fill('Nome completo','QA '+platform);ui.fill('CPF','52998224725');ui.fill('Telefone','11999999999');ui.fill('Endereço','Rua QA 123')
     ui.click('Salvar perfil')
     eventually(lambda:web('/api/me/')['nome']=='QA '+platform,'Native profile not visible to web session')
     ui.capture('01-profile')
