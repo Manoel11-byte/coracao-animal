@@ -165,5 +165,6 @@ jobs:
           path: |
             artifacts/full-android/*.png
             artifacts/full-android/*.json
+            artifacts/full-android/*.xml
             artifacts/full-android/*.txt
             artifacts/full-android/*.log

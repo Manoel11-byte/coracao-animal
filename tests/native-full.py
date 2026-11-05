@@ -119,6 +119,18 @@ class Android:
                     if button and not node.get('clickable')=='true':continue
                     text=node.get('text','');desc=node.get('content-desc','')
                     if text==name or desc==name or (name=='TERMS' and desc.startswith('Entendo que')):return node
+                if edit:
+                    # Filled Android EditTexts expose their value instead of the
+                    # placeholder. Associate the visible label with its input.
+                    labels=[n for n in nodes if n.get('text')==name]
+                    parents={child:parent for parent in tree.iter() for child in parent}
+                    for label in labels:
+                        group=parents.get(label)
+                        for _ in range(3):
+                            if group is None:break
+                            inputs=[n for n in group.iter('node') if n.get('class','').endswith('EditText') and n.get('enabled')=='true']
+                            if len(inputs)==1:return inputs[0]
+                            group=parents.get(group)
                 if signature==previous:up=not up
                 previous=signature
                 if attempt>1:self.scroll(up=up)
@@ -139,7 +151,14 @@ class Android:
     def read(self,name):return self.find(name,edit=True).get('text')
     def check(self):self.tap_node(self.find('TERMS'))
     def confirm(self):self.click('Sim')
-    def capture(self,name):(out/(name+'.png')).write_bytes(self.adb('exec-out','screencap','-p'))
+    def capture(self,name):
+        (out/(name+'.png')).write_bytes(self.adb('exec-out','screencap','-p'))
+        try:
+            tree=self.tree()
+            for node in tree.iter('node'):
+                if node.get('password')=='true':node.set('text','[REDACTED]')
+            (out/(name+'.xml')).write_bytes(ET.tostring(tree))
+        except (subprocess.CalledProcessError,ET.ParseError):pass
     def close(self):self.adb('shell','am','force-stop','br.org.coracaoanimal.app')
 
 ui=None
@@ -153,7 +172,7 @@ try:
     ui.wait(search_button)
     ui.click(account);ui.wait('Entrar');ui.click('Criar conta');ui.wait('Cadastrar')
     ui.fill('Nome completo','QA Native');ui.fill('E-mail',email);ui.fill('Senha (mínimo 10 caracteres)',password);ui.click('Cadastrar')
-    ui.wait('Salvar perfil')
+    ui.wait('Minha conta' if platform=='android' else 'Salvar perfil')
     passed('cadastro e login pelo aplicativo nativo')
     data,headers=call('/api/auth/login','POST',{'email':email,'senha':password,'cliente':'web'})
     web_cookie=headers.get('Set-Cookie').split(';',1)[0]
@@ -165,7 +184,7 @@ try:
     passed('perfil salvo na UI nativa e lido pela sessão web')
     profile=web('/api/me/');profile['nome']='QA From Web'
     web('/api/me/','PUT',profile)
-    ui.click(explore);ui.wait(search_button);ui.click(account);ui.wait('Salvar perfil')
+    ui.click(explore);ui.wait(search_button);ui.click(account);ui.wait('Minha conta' if platform=='android' else 'Salvar perfil')
     assert ui.read('Nome completo')=='QA From Web'
     passed('perfil alterado na sessão web e refletido no aplicativo')
     ui.click(explore);ui.wait(search_button)
@@ -178,7 +197,7 @@ try:
     ui.click('Cancelar solicitação #'+str(adoption['id']));ui.confirm()
     eventually(lambda:web('/api/me/adocoes')[0]['status']=='cancelada','Cancellation missing')
     passed('busca, recomendações, detalhes, adoção e cancelamento pela UI; sessão web confirma')
-    ui.click(help_tab);ui.click('Registrar uma doação');ui.wait('Registrar intenção')
+    ui.click(help_tab);ui.click('Registrar uma doação');ui.wait('Valor em reais' if platform=='android' else 'Registrar intenção')
     ui.fill('Valor em reais','25.50');ui.fill('Observação','QA intention');ui.click('Registrar intenção')
     donation=eventually(lambda:next(iter(web('/api/me/doacoes')),None),'Donation missing')
     assert donation['valor']==25.5
@@ -186,19 +205,19 @@ try:
     ui.click('Cancelar doação #'+str(donation['id']));ui.confirm()
     eventually(lambda:web('/api/me/doacoes')[0]['status']=='cancelada','Donation cancellation missing')
     passed('intenção de doação e cancelamento pela UI, sem cobrança')
-    ui.click(help_tab);ui.click('Quero ser voluntário');ui.wait('Salvar inscrição')
+    ui.click(help_tab);ui.click('Quero ser voluntário');ui.wait('Área de interesse' if platform=='android' else 'Salvar inscrição')
     ui.fill('Área de interesse','QA walks');ui.fill('Dias e horários disponíveis','QA Saturday');ui.click('Salvar inscrição')
     eventually(lambda:(web('/api/me/voluntariado') or {}).get('area')=='QA walks','Volunteer missing')
     ui.wait('Desativar inscrição');ui.capture('04-volunteer');ui.click('Desativar inscrição');ui.confirm()
     eventually(lambda:web('/api/me/voluntariado')['status']=='inativo','Volunteer cancellation missing')
     passed('inscrição e desativação de voluntariado pela UI')
-    ui.click(account);ui.wait('Salvar perfil');ui.click('Alterar senha');ui.wait('Salvar nova senha')
+    ui.click(account);ui.wait('Minha conta' if platform=='android' else 'Salvar perfil');ui.click('Alterar senha');ui.wait('Senha atual' if platform=='android' else 'Salvar nova senha')
     ui.fill('Senha atual',password);ui.fill('Nova senha (mínimo 10 caracteres)',new_password);ui.click('Salvar nova senha');ui.wait('Entrar')
     try: web('/api/me/');raise AssertionError('Old web session survived password change')
     except urllib.error.HTTPError as ex: assert ex.code==401
     try:call('/api/auth/login','POST',{'email':email,'senha':password,'cliente':'app'});raise AssertionError('Old password accepted')
     except urllib.error.HTTPError as ex:assert ex.code==401
-    ui.fill('E-mail',email);ui.fill('Senha',new_password);ui.click('Entrar');ui.wait('Salvar perfil')
+    ui.fill('E-mail',email);ui.fill('Senha',new_password);ui.click('Entrar');ui.wait('Minha conta' if platform=='android' else 'Salvar perfil')
     passed('troca de senha, invalidação da senha anterior e de outras sessões, novo login')
     stop_server();ui.click(explore)
     if platform=='windows':ui.wait('Tentar novamente')
@@ -208,7 +227,7 @@ try:
     else:ui.click(explore)
     ui.wait(search_button)
     passed('falha de conexão visível e recuperação após reinício do serviço')
-    ui.click(account);ui.wait('Salvar perfil');ui.click('Sair da conta');ui.wait('Entrar')
+    ui.click(account);ui.wait('Minha conta' if platform=='android' else 'Salvar perfil');ui.click('Sair da conta');ui.wait('Entrar')
     ui.click('Minhas adoções' if platform=='windows' else 'Adoções');ui.wait('Entrar')
     passed('logout e bloqueio de aba autenticada após sair')
     ui.capture('06-logout')
